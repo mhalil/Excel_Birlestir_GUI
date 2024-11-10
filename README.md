@@ -1,7 +1,10 @@
-# Excel_Birlestir
-Excel Birlestir (Excel Merge) kodları ile Excel (.xls ve .xlsx) ve Libre Ofis Calc (.ods) dosyalarının içeriklerini tamamen ya da belirli kriterler belirtilerek bazı satır ve sütundaki değerleri seçerek birlestirilebilirsiniz.
+# Excel Birlestir (Excel Merge)
+Bu repoda bulunan kodlar ile **Excel (.xls ve .xlsx)** ve **Libre Ofis Calc (.ods)** dosyalarının içeriklerini tamamen ya da belirleyeceğimiz parametrelere (kriterler) göre belirli satır ve sütunlardaki değerleri seçerek birlestirilebiliriz.
 
-Elimizde, aşağıdakine benzer içerikli aynı formatta (biçimde) Excel ve/veya LibreOfis dosyaları olduğunu varsayalım. 
+Repoda birden fazla Python dosyası olduğunu göreceksiniz. Bu kodlar ile, ya bir dosyayı kendi içerisinde düzenleyerek verileri bir araya toplayacağız ya da dizindeki (klasördeki) tüm excel dosyalarındaki verileri tek dosyada toplayacak ve yeni isimle kaydedebileceğiz.
+
+Elimizde, aşağıdakine benzer içerikli aynı formatta (biçimde) Excel ve/veya LibreOfis dosyaları olduğunu varsayalım.
+
 
 **D1.xlsx dosya içeriği:**
 
@@ -13,15 +16,7 @@ Elimizde, aşağıdakine benzer içerikli aynı formatta (biçimde) Excel ve/vey
 
 Bu anlatımda 4 adet dosya (**D1.xlsx, D2.ods, D3.ods** ve **D4.ods**) kullanılmıştır.
 
-## Excel_Birlestir.py Dosyası:
-**Excel_Birlestir.py** dosyasındaki kodu çalıştırdığınızda, aynı dizin (klasör) içerisindeki tüm Excel ve LibreOfis dosyalarının içeriği, **pandas** kütüphanesi aracılığı ile birleştirilir ve **TUMU.xlsx** isimli dosyada toplanır. Kod tekrar çalıştırıldığında TUMU.xlsx dosyası otomatik olarak silinir ve birleştirme işlemi sonunda yeniden oluşturulur.
-
-Tüm içeriği Birleştirilen dosyaların toplandığı **TUMU.xlsx** dosyanın içeriği aşağıdaki gibi olur. Aşağıdaki resme bakarsanız, TUMU.xlsx dosya içeriğinin rahat görünebilmesi amacıyla bazı satırlar gizlenmiş durumdadır. Birleştirme işlemi gerçekleşirken hangi verinin hangi dosyadan kopyalandığının belirtilmesi amacıyla en son sütuna **Dosya Adi** isimli sütun eklenir ve hücrelere dosya isimleri yazdırılır.
-
-![excel_birlestir](resimler/excel_birlestir.png)
-
-
-## Excel_Verilerini_Duzenle_Basliksiz.py Dosyası:
+# Excel_Verilerini_Duzenle_Basliksiz.py Kodu:
 **Excel_Verilerini_Duzenle_Basliksiz.py** dosyası, belirtilen excel dosyası içerisindeki verileri, başlıksız yani sadece verilerin altalta toplanması için kullanılan python kodunu barındırır.
 
 **Excel_Verilerini_Duzenle_Basliksiz.py** dosyasını çalıştırmadan önce excel dosyası içerisinde, verilerin nerede olduğunu belirtmeniz gerekir.
@@ -30,7 +25,7 @@ Aşağıdaki resme bakarsanız, dosyadaki hangi parametrelerin belirtilmesi gere
 
 ![parametreler_basliksiz.png](resimler/parametreler_basliksiz.png)
 
-### Parametre detayları:
+## Parametre detayları:
 * **DosyaAdi**  : Hangi Excel dosyasındaki verilerin altalta toplamasını istediğimizi belirttiğimiz parametre. (örneğin: "D1.xlsx")
 * **sayfa_adi**	 : Birleştirme için excel dosyasındaki hangi sayfadaki (sekmedeki) verilerin seçileceğini belirttiğimiz parametre. (örneğin: "Sayfa1")
 * **satir_atla** : Excel dosyasında ilk Verinin seçilmesi için kaç satır atlamak (görmezden gelmek) istediğimizi belirttiğimiz parametre. Tamsayı değeri olmalı (örneğin: 3 )
@@ -46,9 +41,20 @@ Aşağıdaki resme bakarsanız, dosyadaki hangi parametrelerin belirtilmesi gere
 ![Excel_Verilerini_Duzenle_Basliksiz_sonuc](resimler/Excel_Verilerini_Duzenle_Basliksiz_sonuc.png)
 
 
+# Excel_Verilerini_Duzenle_Baslikli.py Kodu:
+İçerik eklenecek ...
 
 
+# Excel_Birlestir.py Kodu:
+**Excel_Birlestir.py** dosyasındaki kodu çalıştırdığınızda, aynı dizin (klasör) içerisindeki tüm Excel ve LibreOfis dosyalarının içeriği, **pandas** kütüphanesi aracılığı ile birleştirilir ve **TUMU.xlsx** isimli dosyada toplanır. Kod tekrar çalıştırıldığında TUMU.xlsx dosyası otomatik olarak silinir ve birleştirme işlemi sonunda yeniden oluşturulur.
+
+Tüm içeriği Birleştirilen dosyaların toplandığı **TUMU.xlsx** dosyanın içeriği aşağıdaki gibi olur. Aşağıdaki resme bakarsanız, TUMU.xlsx dosya içeriğinin rahat görünebilmesi amacıyla bazı satırlar gizlenmiş durumdadır. Birleştirme işlemi gerçekleşirken hangi verinin hangi dosyadan kopyalandığının belirtilmesi amacıyla en son sütuna **Dosya Adi** isimli sütun eklenir ve hücrelere dosya isimleri yazdırılır.
+
+![excel_birlestir](resimler/excel_birlestir.png)
 
 
+# Excel_Birlestir_TUMU_Baslikli.py Kodu:
+
+İçerik eklenecek ...
 
 
