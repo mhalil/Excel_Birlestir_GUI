@@ -8,6 +8,16 @@
 import pandas as pd
 import os
 
+##### Excel dosyasında yapılacak seçime ait parametrelerin belirlendiği bölüm #####
+DosyaAdi = "D1.xlsx"			# Hangi dosyadaki verileri altalta toplamak istediğini belirt.
+sayfa_adi = "Sayfa1"			# Veri çerçevesi oluşturulurken excel dosyasındaki hangi sayfadaki (sekmedeki) verilerin seçimine dair sayfa adi
+satir_atla = 3					# Veri çerçevesi oluşturulurken kaç satır atlamak (seçmemek) istiyorsun? tamsayi değeri olmalı
+satir_sec = 7					# Veri çerçevesi oluşturulurken kaç satırlık veri seçilsin? tamsayi değeri olmalı
+sutun_sec = "B:G"				# Veri çerçevesi oluşturulurken hangi sütun aralığı veri seçilsin?
+ikinci_secim_oncesi_atlanacak_satir = 4
+dongu = 20						# Döngüyü kaç kez tekrarlamak istediğinizi belirtin. tamsayi değeri olmalı
+#################################
+
 dosyalar = os.listdir()     # Bu Python dosyasının bulunduğu dizindeki (klasördeki) TÜM DOSYA isimlerini, uzantıları ile birlikte al, "dosyalar" isimli listeye ekle / ata.
 dosyalar.sort()             # dosyalar listesindeki öğeleri (dosya isimlerini) alfabetik olarak sırala.
 # # print(dosyalar)			# Kontrol amacli
@@ -36,15 +46,6 @@ def VeriCercevesi():       	# Boş bir DataFrame oluşturan fonksiyon.
 df = VeriCercevesi()		# Birleşim için hazır bekleyen boş veri çerçevesi
 # # print("BOŞ VERİ ÇERÇEVESİ:\n", df)					# Kontrol amacli
 
-sayfa_adi = "Sayfa1"			# Veri çerçevesi oluşturulurken excel dosyasındaki hangi sayfadaki (sekmedeki)  verilerin seçimine dair sayfa adi
-satir_atla = 3					# Veri çerçevesi oluşturulurken kaç satır atlamak (seçmemek) istiyorsun? tamsayi değeri olmalı
-satir_sec = 7					# Veri çerçevesi oluşturulurken kaç satırlık veri seçilsin? tamsayi değeri olmalı
-sutun_sec = "B:G"				# Veri çerçevesi oluşturulurken hangi sütun aralığı veri seçilsin?
-ikinci_secim_oncesi_atlanacak_satir = 4
-dongu = 20						# Döngüyü kaç kez tekrarlamak istediğinizi belirtin. tamsayi değeri olmalı
-DosyaAdi = "D3.ods"
-
-
 def VeriCercevesiBasliksiz(dosya_adi, say_adi=sayfa_adi, sat_atla=satir_atla, sat_sec=satir_sec, sut_sec=sutun_sec):      # Belirtilen dosya adına göre, dosya içeriğini Başlıksız DataFrame'e çeviren fonksiyon.
 	global sayfa_adi, satir_atla, satir_sec, sutun_sec
 	g = pd.read_excel(dosya_adi, sheet_name=say_adi, header=None, skiprows=range(0,sat_atla), nrows=satir_sec, usecols=sut_sec)
@@ -63,4 +64,4 @@ tum_veriler(DosyaAdi)
 
 print("\n\nBİRLEŞİM SONRASI df VERİ ÇERÇEVESİ:\n\n", df)
 
-df.to_excel("Basliksiz_" + DosyaAdi)    # Tüm dosyalar birleştirildikten sonra sonuç "TUMU.xlsx" ismi ile kaydedilir.
+df.to_excel("Basliksiz_" + DosyaAdi)    # Tüm veriler alt alta toplandıktan sonra sonuç "Basliksiz_DosyaAdi" ismi ile kaydedilir.

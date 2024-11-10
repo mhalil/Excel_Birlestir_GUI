@@ -54,6 +54,6 @@ def tum_veriler(dosya_adi):
 
 tum_veriler(DosyaAdi)
 
-# # print("\n\nBİRLEŞİM SONRASI df VERİ ÇERÇEVESİ:\n\n", df)
+print("\n\nBİRLEŞİM SONRASI df VERİ ÇERÇEVESİ:\n\n", df)
 
 # # df.to_excel("D_" + DosyaAdi)    # Tüm dosyalar birleştirildikten sonra sonuç "TUMU.xlsx" ismi ile kaydedilir.
