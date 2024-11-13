@@ -23,15 +23,15 @@ Bu anlatımda 4 adet dosya (**D1.xlsx, D2.ods, D3.ods** ve **D4.ods**) kullanıl
 
 Aşağıdaki resme bakarsanız, dosyadaki hangi parametrelerin belirtilmesi gerektiğini rahatlıkla anlayabilirsiniz.
 
-![parametreler_basliksiz.png](resimler/parametreler_basliksiz.png)
+![parametreler_basliksiz.png](resimler/parametreler.png)
 
 ## Parametre detayları:
 * **DosyaAdi**  : Hangi Excel dosyasındaki verilerin altalta toplamasını istediğimizi belirttiğimiz parametre. (örneğin: "D1.xlsx")
 * **sayfa_adi**	 : Birleştirme için excel dosyasındaki hangi sayfadaki (sekmedeki) verilerin seçileceğini belirttiğimiz parametre. (örneğin: "Sayfa1")
-* **satir_atla** : Excel dosyasında ilk Verinin seçilmesi için kaç satır atlamak (görmezden gelmek) istediğimizi belirttiğimiz parametre. Tamsayı değeri olmalı (örneğin: 3 )
-* **satir_sec**  : Excel dosyasında kaç satırlık verinin seçilmesi gerektiğini belirttiğimiz parametre. Tamsayı değeri olmalı (örneğin: 7 )
-* **sutun_sec**  : Excel dosyasında kopyalanacak verilerin hangi sütun aralığında olduğunu belirttiğimiz parametre. (örneğin: "B:G" )
-* **ikinci_secim_oncesi_atlanacak_satir** : İlk veri seçildikten sonra, ikinci veri için kaç satır veriyi atlamak (görmezden gelmek) istediğimizi belirttiğimiz parametre. Tamsayı değeri olmalı (örneğin: 4 )
+* **ilk_veri_satiri** : Excel dosyasında ilk Verinin seçilmesi için kaç satır atlamak (görmezden gelmek) istediğimizi belirttiğimiz parametre. Tamsayı değeri olmalı (örneğin: 3 )
+* **satir_kopyala**  : Excel dosyasında kaç satırlık verinin seçilmesi gerektiğini belirttiğimiz parametre. Tamsayı değeri olmalı (örneğin: 7 )
+* **sutun_kopyala**  : Excel dosyasında kopyalanacak verilerin hangi sütun aralığında olduğunu belirttiğimiz parametre. (örneğin: "B:G" )
+* **atlanacak_satir_sayisi** : İlk veri seçildikten sonra, ikinci veri için kaç satır veriyi atlamak (görmezden gelmek) istediğimizi belirttiğimiz parametre. Tamsayı değeri olmalı (örneğin: 4 )
 * **dongu** : Excel dosyasında kopyalanacak veri kümesinden kaç adet olduğunu, yani kopyalama döngüsünün kaç kez tekrarlanmasını istediğimizi belirttiğimiz parametre. Tamsayı değeri olmalı. Büyük değer belirtmek sorun oluşturmaz. Küçük değer belirtilirse, yeteri kadar veri kopyalanamaz. (örneğin: 20 )
 
 **Excel_Verilerini_Duzenle_Basliksiz.py** dosyası çalıştırıldıktan sonra Tüm veriler alt alta toplandıktan sonra sonuç "Basliksiz_DosyaAdi" ismi ile kaydedilir.
