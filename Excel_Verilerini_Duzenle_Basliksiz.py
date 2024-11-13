@@ -9,13 +9,13 @@ import pandas as pd
 import os
 
 ##### Excel dosyasında yapılacak seçime ait parametrelerin belirlendiği bölüm #####
-DosyaAdi = "D1.xlsx"			# Hangi dosyadaki verileri altalta toplamak istediğini belirt.
-sayfa_adi = "Sayfa1"			# Veri çerçevesi oluşturulurken excel dosyasındaki hangi sayfadaki (sekmedeki) verilerin seçimine dair sayfa adi
-satir_atla = 3					# Veri çerçevesi oluşturulurken kaç satır atlamak (seçmemek) istiyorsun? tamsayi değeri olmalı
-satir_sec = 7					# Veri çerçevesi oluşturulurken kaç satırlık veri seçilsin? tamsayi değeri olmalı
-sutun_sec = "B:G"				# Veri çerçevesi oluşturulurken hangi sütun aralığı veri seçilsin?
-ikinci_secim_oncesi_atlanacak_satir = 4
-dongu = 20						# Döngüyü kaç kez tekrarlamak istediğinizi belirtin. tamsayi değeri olmalı
+DosyaAdi = "D1.xlsx"			# kopyalanacak verilerin bulunduğu dosya adı
+sayfa_adi = "Sayfa1"			# kopyalanacak verilerin bulunduğu sayfa adı
+ilk_veri_satiri = 5				# kopyalanacak ilk verinin bulunduğu satır numarası. tamsayı değeri olmalı
+satir_kopyala = 7				# kopyalanacak verilerin bulunduğu satır sayısı. tamsayı değeri olmalı
+sutun_kopyala = "B:G"			# kopyalanacak verilerin bulunduğu sütun aralığı. Örneğin "A:K"
+atlanacak_satir_sayisi = 5		# ilk veri grubu kopyalandıktan sonra ikinci veri grubuna erişmek için atlanacak satır sayısı.tamsayı değeri olmalı
+dongu = 20						# veri kopyalarken dosya içerisinde döngüyü kaç kez tekrarlamak istediğinizi belirtin. tamsayı değeri olmalı
 #################################
 
 dosyalar = os.listdir()     # Bu Python dosyasının bulunduğu dizindeki (klasördeki) TÜM DOSYA isimlerini, uzantıları ile birlikte al, "dosyalar" isimli listeye ekle / ata.
@@ -46,19 +46,19 @@ def VeriCercevesi():       	# Boş bir DataFrame oluşturan fonksiyon.
 df = VeriCercevesi()		# Birleşim için hazır bekleyen boş veri çerçevesi
 # # print("BOŞ VERİ ÇERÇEVESİ:\n", df)					# Kontrol amacli
 
-def VeriCercevesiBasliksiz(dosya_adi, say_adi=sayfa_adi, sat_atla=satir_atla, sat_sec=satir_sec, sut_sec=sutun_sec):      # Belirtilen dosya adına göre, dosya içeriğini Başlıksız DataFrame'e çeviren fonksiyon.
-	global sayfa_adi, satir_atla, satir_sec, sutun_sec
-	g = pd.read_excel(dosya_adi, sheet_name=say_adi, header=None, skiprows=range(0,sat_atla), nrows=satir_sec, usecols=sut_sec)
+def VeriCercevesiBasliksiz(dosya_adi, say_adi=sayfa_adi, ilk_veri=ilk_veri_satiri, sat_sec=satir_kopyala, sut_sec=sutun_kopyala):      # Belirtilen dosya adına göre, dosya içeriğini Başlıksız DataFrame'e çeviren fonksiyon.
+	global sayfa_adi, ilk_veri_satiri, satir_kopyala, sutun_kopyala
+	g = pd.read_excel(dosya_adi, sheet_name=say_adi, header=None, skiprows=range(0,ilk_veri-1), nrows=satir_kopyala, usecols=sut_sec)
 	g["Dosya Adi"] = dosya_adi
 	return g
 
 def tum_veriler(dosya_adi):
-	global sayfa_adi, satir_atla, satir_sec, sutun_sec, ikinci_secim_oncesi_atlanacak_satir, df
+	global sayfa_adi, ilk_veri_satiri, satir_kopyala, sutun_kopyala, atlanacak_satir_sayisi, df
 	for _ in range(dongu):
-		gecici_df = VeriCercevesiBasliksiz(dosya_adi, say_adi=sayfa_adi, sat_atla=satir_atla, sat_sec=satir_sec, sut_sec=sutun_sec)
+		gecici_df = VeriCercevesiBasliksiz(dosya_adi, say_adi=sayfa_adi, ilk_veri=ilk_veri_satiri, sat_sec=satir_kopyala, sut_sec=sutun_kopyala)
 		df = pd.concat([df, gecici_df])
-		satir_artir = satir_sec + ikinci_secim_oncesi_atlanacak_satir
-		satir_atla += satir_artir
+		satir_artir = satir_kopyala + atlanacak_satir_sayisi
+		ilk_veri_satiri += satir_artir
 
 tum_veriler(DosyaAdi)
 
