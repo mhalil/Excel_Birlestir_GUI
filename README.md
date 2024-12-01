@@ -23,7 +23,7 @@ Bu anlatımda 4 adet dosya (**D1.xlsx, D2.ods, D3.ods** ve **D4.ods**) kullanıl
 
 Aşağıdaki resme bakarsanız, dosyadaki hangi parametrelerin belirtilmesi gerektiğini rahatlıkla anlayabilirsiniz.
 
-![parametreler_basliksiz.png](resimler/parametreler.png)
+![parametreler_basliksiz.png](resimler/parametreler_.png)
 
 ## Parametre detayları:
 * **DosyaAdi**  : Hangi Excel dosyasındaki verilerin altalta toplamasını istediğimizi belirttiğimiz parametre. (örneğin: "D1.xlsx")
