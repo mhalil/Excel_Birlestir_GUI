@@ -1,6 +1,9 @@
 # Excel Birlestir (Excel Merge)
 Bu repoda bulunan kodlar ile **Excel (.xls ve .xlsx)** ve **Libre Ofis Calc (.ods)** dosyalarının içeriklerini tamamen ya da belirleyeceğimiz parametrelere (kriterler) göre belirli satır ve sütunlardaki değerleri seçerek birlestirilebiliriz.
 
+![ss](resimler/SS.png)
+
+
 Repoda birden fazla Python dosyası olduğunu göreceksiniz. Bu kodlar ile, ya bir dosyayı kendi içerisinde düzenleyerek verileri bir araya toplayacağız ya da dizindeki (klasördeki) tüm excel dosyalarındaki verileri tek dosyada toplayacak ve yeni isimle kaydedebileceğiz.
 
 Elimizde, aşağıdakine benzer içerikli aynı formatta (biçimde) Excel ve/veya LibreOfis dosyaları olduğunu varsayalım.
