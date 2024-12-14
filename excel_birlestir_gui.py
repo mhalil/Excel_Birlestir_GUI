@@ -13,6 +13,9 @@ pencere.geometry("500x500+500+100")
 
 excel_dosyalari = []
 
+gorsel_yardim = True
+
+
 ### FONKSİYONLAR
 def klasor_sec():
 	global excel_dosyalari
@@ -20,7 +23,6 @@ def klasor_sec():
 	xls = klasor_adi + "/*.xls*"
 	excel_dosyalari = glob.glob(xls)
 	### Seçilen dosyalar hakkında bilgi veren bir diyalog açılabilir
-
 
 def birlestir():
 	global excel_dosyalari
@@ -31,11 +33,16 @@ def birlestir():
 		print(a)
 
 def yardim():
-    image = ImageTk.PhotoImage(file = "parametreler.png")
-    etiket_resim.configure(image = image)
-    etiket_resim.image = image
-    pencere.geometry("1400x700+200+100")
-
+	global gorsel_yardim
+	if gorsel_yardim == True:
+		image = ImageTk.PhotoImage(file = "parametreler.png")
+		etiket_resim.configure(image = image)
+		etiket_resim.image = image
+		pencere.geometry("1400x700+200+100")
+		gorsel_yardim = False
+	else:
+		pencere.geometry("500x700+500+100")
+		gorsel_yardim = True
 
 
 ### Klasör seçici
@@ -78,12 +85,13 @@ entry_kayit_dosya_adi = ttk.Entry(cerceve_parametreler).grid(row=7, column=1, pa
 #####
 
 ### Alt Butonlar
-ttk.Button(pencere, text="Görsel Yardım", style='info.TButton', command=yardim).grid(row=2, column=0, pady=5, padx=25)
+buton_yardim = ttk.Button(pencere, text="Görsel Yardımı Aç / Kapat", style='info.TButton', command=yardim).grid(row=2, column=0, pady=5, padx=25)
 ttk.Button(pencere, text="Dosyaları Birleştir", style='primary.TButton', command=birlestir).grid(row=2, column=1, pady=5, padx=25)
 
 ### Durum Çubuğu yerine bilgi metni
 bilgi = ttk.Label(pencere, text="Bilgi: Program birleştirme işlemi için hazır...", anchor="w").grid(row=3, column=0, columnspan=2)
 
+### Yardim gorseli
 etiket_resim = ttk.Label(pencere)
 etiket_resim.grid(row=0, column=2, rowspan=4)
 
