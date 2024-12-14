@@ -2,13 +2,14 @@ from ttkbootstrap import Style
 from tkinter import ttk, filedialog
 import glob
 import pandas as pd
+from PIL import ImageTk
 
 style = Style()
 style = Style(theme='litera')
 
 pencere = style.master
 pencere.title("Excel Birleştir")
-pencere.geometry("550x500")
+pencere.geometry("500x500+500+100")
 
 excel_dosyalari = []
 
@@ -30,7 +31,12 @@ def birlestir():
 		print(a)
 
 def yardim():
-	print("Görsel parametre yardımı goruntulenecek")
+    image = ImageTk.PhotoImage(file = "parametreler.png")
+    etiket_resim.configure(image = image)
+    etiket_resim.image = image
+    pencere.geometry("1400x700+200+100")
+
+
 
 ### Klasör seçici
 ttk.Label(pencere, text='Excel dosyalarını seç:').grid(row=0, column=0, pady=5, padx=20)
@@ -77,4 +83,8 @@ ttk.Button(pencere, text="Dosyaları Birleştir", style='primary.TButton', comma
 
 ### Durum Çubuğu yerine bilgi metni
 bilgi = ttk.Label(pencere, text="Bilgi: Program birleştirme işlemi için hazır...", anchor="w").grid(row=3, column=0, columnspan=2)
+
+etiket_resim = ttk.Label(pencere)
+etiket_resim.grid(row=0, column=2, rowspan=4)
+
 pencere.mainloop()
