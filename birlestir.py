@@ -1,49 +1,57 @@
 from ttkbootstrap import Style
-from tkinter import ttk, filedialog
+from tkinter import ttk, filedialog, Tk, Toplevel, Label, PhotoImage
 import glob
 import pandas as pd
-from PIL import ImageTk
 
 style = Style()
 style = Style(theme='litera')
 
 pencere = style.master
 pencere.title("Excel Birleştir")
-pencere.geometry("500x500+500+100")
+pencere.geometry("500x500+200+100")
 
 excel_dosyalari = []
+yardim = False
 
-gorsel_yardim = True
+########### FONKSİYONLAR ###########
 
-
-### FONKSİYONLAR
+### Klasör Seçme Fonksiyonu
 def klasor_sec():
 	global excel_dosyalari
 	klasor_adi = filedialog.askdirectory()
+
+	if not klasor_adi:
+		print("Hiçbir klasör seçilmedi.")
+		return
+
 	xls = klasor_adi + "/*.xls*"
 	excel_dosyalari = glob.glob(xls)
-	### Seçilen dosyalar hakkında bilgi veren bir diyalog açılabilir
 
+	# Dosya sayısını bilgi etiketi üzerinde göster
+	if excel_dosyalari:
+		bilgi.config(text=f"Seçilen klasörde Toplam {len(excel_dosyalari)} adet Excel dosyası bulundu.")
+	else:
+		bilgi.config(text="Seçilen klasörde hiç Excel dosyası bulunamadı.")
+
+### Excelleri birleştirme Fonksiyonu
 def birlestir():
 	global excel_dosyalari
 	for i in range(len(excel_dosyalari)):
 		a = "df_" + str(i)
-		print(a + "Veri Çerçevesi:")
+		# # print(a + "Veri Çerçevesi:")
 		a = pd.read_excel(excel_dosyalari[i])
-		print(a)
+		# # print(a)
 
+### Yardım penceresi görüntüleme Fonksiyonu
 def yardim():
-	global gorsel_yardim
-	if gorsel_yardim == True:
-		image = ImageTk.PhotoImage(file = "parametreler.png")
-		etiket_resim.configure(image = image)
-		etiket_resim.image = image
-		pencere.geometry("1400x700+200+100")
-		gorsel_yardim = False
-	else:
-		pencere.geometry("500x700+500+100")
-		gorsel_yardim = True
+	yardim_penceresi = Toplevel()
+	yardim_penceresi.geometry("850x700+700+100")
+	yardim_penceresi.title(".:: GÖRSEL YARDIM ::.")
+	resim = PhotoImage(file="resimler/parametreler.png")
+	etiket_resim = Label(yardim_penceresi, image=resim).pack()
+	yardim_penceresi.mainloop()
 
+########### ARABİRİM OLUSTURULUYOR###########
 
 ### Klasör seçici
 ttk.Label(pencere, text='Excel dosyalarını seç:').grid(row=0, column=0, pady=5, padx=20)
@@ -56,7 +64,6 @@ cerceve_parametreler = ttk.LabelFrame(
     height=450,
     text="Parametreler")
 cerceve_parametreler.grid(row=1, column=0, pady=5, padx=25, columnspan=2)
-
 
 ### Parametreler
 sayfa_belirt = ttk.Checkbutton(cerceve_parametreler, text='Sayfa Adı Belirt', style='primary.Roundtoggle.Toolbutton').grid(row=0, column=0, pady=5, padx=25)
@@ -85,14 +92,12 @@ entry_kayit_dosya_adi = ttk.Entry(cerceve_parametreler).grid(row=7, column=1, pa
 #####
 
 ### Alt Butonlar
-buton_yardim = ttk.Button(pencere, text="Görsel Yardımı Aç / Kapat", style='info.TButton', command=yardim).grid(row=2, column=0, pady=5, padx=25)
+buton_yardim = ttk.Button(pencere, text="Görsel Yardımı Aç", style='info.TButton', command=yardim)
+buton_yardim.grid(row=2, column=0, pady=5, padx=25)
 ttk.Button(pencere, text="Dosyaları Birleştir", style='primary.TButton', command=birlestir).grid(row=2, column=1, pady=5, padx=25)
 
-### Durum Çubuğu yerine bilgi metni
-bilgi = ttk.Label(pencere, text="Bilgi: Program birleştirme işlemi için hazır...", anchor="w").grid(row=3, column=0, columnspan=2)
-
-### Yardim gorseli
-etiket_resim = ttk.Label(pencere)
-etiket_resim.grid(row=0, column=2, rowspan=4)
+### Bilgi Etketi
+bilgi = Label(pencere, text="Bilgi: Program birleştirme işlemi için hazır...")
+bilgi.grid(row=3, column=0, columnspan=2)
 
 pencere.mainloop()
