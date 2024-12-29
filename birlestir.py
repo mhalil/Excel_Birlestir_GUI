@@ -82,38 +82,38 @@ entry_sayfa_adi = ttk.Entry(cerceve_parametreler, state='disabled')
 entry_sayfa_adi.grid(row=0, column=1, pady=5, padx=25)
 
 etiket_baslik_satir_no = ttk.Label(cerceve_parametreler, text='Başlık Satırı Numarası:')
-etiket_baslik_satir_no.grid(row=1, column=0, pady=5, padx=25)
+etiket_baslik_satir_no.grid(row=1, column=0, pady=5, padx=25, sticky='w')
 
 entry_baslik_satiri = ttk.Entry(cerceve_parametreler)
 entry_baslik_satiri.grid(row=1, column=1, pady=5, padx=25)
 
 etiket_ilk_veri_satiri = ttk.Label(cerceve_parametreler, text='İlk Veri Satırı Numarası:')
-etiket_ilk_veri_satiri.grid(row=2, column=0, pady=5, padx=25)
+etiket_ilk_veri_satiri.grid(row=2, column=0, pady=5, padx=25, sticky='w')
 
 entry_ilk_veri_satiri = ttk.Entry(cerceve_parametreler)
 entry_ilk_veri_satiri.grid(row=2, column=1, pady=5, padx=25)
 
 etiket_kopyalanacak_satir = ttk.Label(cerceve_parametreler, text='Kopyalanacak Satır Sayısı:')
-etiket_kopyalanacak_satir.grid(row=3, column=0, pady=5, padx=25)
+etiket_kopyalanacak_satir.grid(row=3, column=0, pady=5, padx=25, sticky='w')
 
 entry_kopyalanacak_satir = ttk.Entry(cerceve_parametreler)
 entry_kopyalanacak_satir.grid(row=3, column=1, pady=5, padx=25)
 
 etiket_atlanacak_satir = ttk.Label(cerceve_parametreler, text='Atlanacak Satırı Sayısı:')
-etiket_atlanacak_satir.grid(row=4, column=0, pady=5, padx=25)
+etiket_atlanacak_satir.grid(row=4, column=0, pady=5, padx=25, sticky='w')
 
 entry_atlanacak_satir = ttk.Entry(cerceve_parametreler)
 entry_atlanacak_satir.grid(row=4, column=1, pady=5, padx=25)
 
 etiket_kopyalanacak_sutun = ttk.Label(cerceve_parametreler, text='Kopyalanacak Sütunlar:')
-etiket_kopyalanacak_sutun.grid(row=5, column=0, pady=5, padx=25)
+etiket_kopyalanacak_sutun.grid(row=5, column=0, pady=5, padx=25, sticky='w')
 
 entry_kopyalanacak_sutun = ttk.Entry(cerceve_parametreler)
 entry_kopyalanacak_sutun.insert(string="B:G şeklinde yazın", index=0)
 entry_kopyalanacak_sutun.grid(row=5, column=1, pady=5, padx=25)
 
 etiket_dongu_sayisi = ttk.Label(cerceve_parametreler, text='Döngü Sayısı:')
-etiket_dongu_sayisi.grid(row=6, column=0, pady=5, padx=25)
+etiket_dongu_sayisi.grid(row=6, column=0, pady=5, padx=25, sticky='w')
 
 entry_dongu_sayisi = ttk.Entry(cerceve_parametreler)
 entry_dongu_sayisi.grid(row=6, column=1, pady=5, padx=25)
