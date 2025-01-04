@@ -1,7 +1,7 @@
 from ttkbootstrap import Style
 from tkinter import ttk, filedialog, Tk, Toplevel, Label, PhotoImage, IntVar
-import glob
-import pandas as pd
+from glob import glob
+from pandas import read_excel #, to_excel, DataFrame
 
 style = Style()
 style = Style(theme='litera')
@@ -12,6 +12,7 @@ pencere.geometry("525x500+200+100")
 pencere.resizable(width=False, height=False)
 
 excel_dosyalari = []
+
 yardim = False
 
 ########### FONKSİYONLAR ###########
@@ -21,12 +22,9 @@ def klasor_sec():
 	global excel_dosyalari
 	klasor_adi = filedialog.askdirectory()
 
-	if not klasor_adi:
-		print("Hiçbir klasör seçilmedi.")
-		return
-
 	xls = klasor_adi + "/*.xls*"
-	excel_dosyalari = glob.glob(xls)
+	excel_dosyalari = glob(xls)	# liste veri yapısı. Tam yol ve dosya adı icerir.
+	# # print(excel_dosyalari)
 
 	# Dosya sayısını bilgi etiketi üzerinde göster
 	if excel_dosyalari:
@@ -58,6 +56,8 @@ def dosya_adi_belirt():
 		entry_kayit_dosya_adi.config(state='normal')
 	else:
 		entry_kayit_dosya_adi.config(state='disabled')
+
+
 
 ########### ARABİRİM OLUSTURULUYOR###########
 
@@ -126,9 +126,10 @@ entry_kayit_dosya_adi = ttk.Entry(cerceve_parametreler, state="disabled")
 entry_kayit_dosya_adi.grid(row=7, column=1, pady=5, padx=25)
 #####
 
+
 ### Excelleri birleştirme Fonksiyonu
 def birlestir():
-	global entry_sayfa_adi, entry_baslik_satiri, entry_ilk_veri_satiri,	entry_kopyalanacak_satir, entry_kopyalanacak_sutun, entry_atlanacak_satir, entry_dongu_sayisi, entry_kayit_dosya_adi
+	global entry_sayfa_adi, entry_baslik_satiri, entry_ilk_veri_satiri,	entry_kopyalanacak_satir, entry_kopyalanacak_sutun, entry_atlanacak_satir, entry_dongu_sayisi, entry_kayit_dosya_adi, excel_dosyalari
 
 	########## Gerekli Bilgiler   	##########
 	sayfa_adi = entry_sayfa_adi.get()								# kopyalanacak verilerin bulunduğu sayfa adı
@@ -146,7 +147,27 @@ def birlestir():
 	dongu = dongu_orj
 	####################################################################################
 
-	print(sayfa_adi, baslik_satiri, ilk_veri_satiri_orj, satir_kopyala_orj, "SÜTUN ARALIĞI:", sutun_kopyala, atlanacak_satir_sayisi_orj, dongu_orj, kayit_dosya_adi)
+	# # print(sayfa_adi, baslik_satiri, ilk_veri_satiri_orj, satir_kopyala_orj, "SÜTUN ARALIĞI:", sutun_kopyala, atlanacak_satir_sayisi_orj, dongu_orj, kayit_dosya_adi)
+	# # print(excel_dosyalari)
+
+	def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki hata ChatGPT ile cozuldu.
+		sutun_kopyala = entry_kopyalanacak_sutun.get().strip()
+		if ":" not in sutun_kopyala:
+			bilgi.config(text="Hata: Kopyalanacak sütun aralığını doğru formatta belirtin (örnek: B:G).")
+			return []
+
+		usecols = sutun_kopyala if sutun_kopyala else None
+		try:
+			df_g = read_excel(excel_dosyalari[0], sheet_name=sayfa_adi, usecols=usecols)
+		except ValueError as e:
+			bilgi.config(text=f"Hata: Geçersiz sütun aralığı veya sayfa adı. {str(e)}")
+			return []
+
+		# # print(f"Kopyalanacak sütun aralığı: {sutun_kopyala}")
+		return list(df_g.iloc[baslik_satiri - 2])
+
+	baslik_listesi = baslik()
+	print("baslik:", baslik_listesi)
 
 
 ### Alt Butonlar
