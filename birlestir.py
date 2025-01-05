@@ -78,44 +78,50 @@ kontrol_sayfa_adi = IntVar()
 kontrol_sayfa_belirt = ttk.Checkbutton(cerceve_parametreler, text='Sayfa Adı Belirt', style='primary.Roundtoggle.Toolbutton', variable=kontrol_sayfa_adi, command=sayfa_adi_belirt)
 kontrol_sayfa_belirt.grid(row=0, column=0, pady=5, padx=25)
 
-entry_sayfa_adi = ttk.Entry(cerceve_parametreler, state='disabled')
+entry_sayfa_adi = ttk.Entry(cerceve_parametreler, state='enable')
+entry_sayfa_adi.insert(string="Sayfa1", index=0)
 entry_sayfa_adi.grid(row=0, column=1, pady=5, padx=25)
 
 etiket_baslik_satir_no = ttk.Label(cerceve_parametreler, text='Başlık Satırı Numarası:')
 etiket_baslik_satir_no.grid(row=1, column=0, pady=5, padx=25, sticky='w')
 
 entry_baslik_satiri = ttk.Entry(cerceve_parametreler)
+entry_baslik_satiri.insert(string=4, index=0)
 entry_baslik_satiri.grid(row=1, column=1, pady=5, padx=25)
 
 etiket_ilk_veri_satiri = ttk.Label(cerceve_parametreler, text='İlk Veri Satırı Numarası:')
 etiket_ilk_veri_satiri.grid(row=2, column=0, pady=5, padx=25, sticky='w')
 
 entry_ilk_veri_satiri = ttk.Entry(cerceve_parametreler)
+entry_ilk_veri_satiri.insert(string=5, index=0)
 entry_ilk_veri_satiri.grid(row=2, column=1, pady=5, padx=25)
 
 etiket_kopyalanacak_satir = ttk.Label(cerceve_parametreler, text='Kopyalanacak Satır Sayısı:')
 etiket_kopyalanacak_satir.grid(row=3, column=0, pady=5, padx=25, sticky='w')
 
 entry_kopyalanacak_satir = ttk.Entry(cerceve_parametreler)
+entry_kopyalanacak_satir.insert(string=7, index=0)
 entry_kopyalanacak_satir.grid(row=3, column=1, pady=5, padx=25)
 
 etiket_atlanacak_satir = ttk.Label(cerceve_parametreler, text='Atlanacak Satırı Sayısı:')
 etiket_atlanacak_satir.grid(row=4, column=0, pady=5, padx=25, sticky='w')
 
 entry_atlanacak_satir = ttk.Entry(cerceve_parametreler)
+entry_atlanacak_satir.insert(string=3, index=0)
 entry_atlanacak_satir.grid(row=4, column=1, pady=5, padx=25)
 
 etiket_kopyalanacak_sutun = ttk.Label(cerceve_parametreler, text='Kopyalanacak Sütunlar:')
 etiket_kopyalanacak_sutun.grid(row=5, column=0, pady=5, padx=25, sticky='w')
 
 entry_kopyalanacak_sutun = ttk.Entry(cerceve_parametreler)
-entry_kopyalanacak_sutun.insert(string="B:G şeklinde yazın", index=0)
+entry_kopyalanacak_sutun.insert(string="B:G", index=0)
 entry_kopyalanacak_sutun.grid(row=5, column=1, pady=5, padx=25)
 
 etiket_dongu_sayisi = ttk.Label(cerceve_parametreler, text='Döngü Sayısı:')
 etiket_dongu_sayisi.grid(row=6, column=0, pady=5, padx=25, sticky='w')
 
 entry_dongu_sayisi = ttk.Entry(cerceve_parametreler)
+entry_dongu_sayisi.insert(string=2, index=0)
 entry_dongu_sayisi.grid(row=6, column=1, pady=5, padx=25)
 
 kontrol_dosya_adi_degisken = IntVar()
@@ -136,7 +142,7 @@ def birlestir():
 	baslik_satiri = int(entry_baslik_satiri.get())					# başlık olarak kullanılacak satır numarası. tamsayı değeri olmalı
 	ilk_veri_satiri_orj = int(entry_ilk_veri_satiri.get())			# kopyalanacak ilk verinin bulunduğu satır numarası. tamsayı değeri olmalı
 	satir_kopyala_orj = int(entry_kopyalanacak_satir.get())			# kopyalanacak verilerin bulunduğu satır sayısı. tamsayı değeri olmalı
-	sutun_kopyala = "'" + entry_kopyalanacak_sutun.get() + "'"		# kopyalanacak verilerin bulunduğu sütun aralığı. Örneğin "A:K"
+	sutun_kopyala = entry_kopyalanacak_sutun.get()					# kopyalanacak verilerin bulunduğu sütun aralığı. Örneğin "A:K"
 	atlanacak_satir_sayisi_orj = int(entry_atlanacak_satir.get()) 	# ilk veri grubu kopyalandıktan sonra ikinci veri grubuna erişmek için atlanacak satır sayısı.tamsayı değeri olmalı
 	dongu_orj = int(entry_dongu_sayisi.get())						# veri kopyalarken dosya içerisinde döngüyü kaç kez tekrarlamak istediğinizi belirtin. tamsayı değeri olmalı
 	kayit_dosya_adi = entry_kayit_dosya_adi.get()
@@ -150,15 +156,19 @@ def birlestir():
 	# # print(sayfa_adi, baslik_satiri, ilk_veri_satiri_orj, satir_kopyala_orj, "SÜTUN ARALIĞI:", sutun_kopyala, atlanacak_satir_sayisi_orj, dongu_orj, kayit_dosya_adi)
 	# # print(excel_dosyalari)
 
-	def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki hata ChatGPT ile cozuldu.
+	if len(excel_dosyalari) < 1:
+		bilgi.config(text="Hata: Klasör seçimi yapılmadı.")
+
+	def baslik_sec():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki hata ChatGPT ile cozuldu.
 		sutun_kopyala = entry_kopyalanacak_sutun.get().strip()
 		if ":" not in sutun_kopyala:
 			bilgi.config(text="Hata: Kopyalanacak sütun aralığını doğru formatta belirtin (örnek: B:G).")
 			return []
 
-		usecols = sutun_kopyala if sutun_kopyala else None
+		secili_sutun = sutun_kopyala if sutun_kopyala else None
 		try:
-			df_g = read_excel(excel_dosyalari[0], sheet_name=sayfa_adi, usecols=usecols)
+			df_g = read_excel(excel_dosyalari[0], sheet_name=sayfa_adi, usecols=secili_sutun)
+
 		except ValueError as e:
 			bilgi.config(text=f"Hata: Geçersiz sütun aralığı veya sayfa adı. {str(e)}")
 			return []
@@ -166,8 +176,8 @@ def birlestir():
 		# # print(f"Kopyalanacak sütun aralığı: {sutun_kopyala}")
 		return list(df_g.iloc[baslik_satiri - 2])
 
-	baslik_listesi = baslik()
-	print("baslik:", baslik_listesi)
+	baslik = baslik_sec()
+	print("baslik:", baslik)
 
 
 ### Alt Butonlar
