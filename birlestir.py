@@ -1,7 +1,7 @@
 from ttkbootstrap import Style
 from tkinter import ttk, filedialog, Tk, Toplevel, Label, PhotoImage, IntVar
 from glob import glob
-from pandas import read_excel #, to_excel, DataFrame
+from pandas import read_excel, DataFrame, concat #, to_excel,
 
 style = Style()
 style = Style(theme='litera')
@@ -179,6 +179,56 @@ def birlestir():
 	baslik = baslik_sec()
 	print("baslik:", baslik)
 
+	def dosya_verileri(dosya_adi):
+		global entry_sayfa_adi, entry_baslik_satiri, entry_ilk_veri_satiri,	entry_kopyalanacak_satir, entry_kopyalanacak_sutun, entry_atlanacak_satir, entry_dongu_sayisi, entry_kayit_dosya_adi, excel_dosyalari
+		# # try:
+		df_g = read_excel(dosya_adi, header=None, names=baslik, skiprows=range(0,atlanacak_satir_sayisi+1), usecols=sutun_kopyala)
+		print("\ndf_g:\n", df_g)
+
+		# # df_satir_sayisi = df_g.shape[0]
+		# # silinecek_satirlar = []
+
+		# # for _ in range(df_satir_sayisi):
+			# # for i in range(int(entry_ilk_veri_satiri.get(), entry_ilk_veri_satiri.get()) + int(entry_kopyalanacak_satir.get())):
+				# # silinecek_satirlar.append(i)
+
+			# # ilk_veri_satiri += atlanacak_satir_sayisi
+
+		# # print("silinecek satirlar listesi:", silinecek_satirlar)
+
+		# # df_g.drop(silinecek_satirlar, axis = 0, inplace = True)
+
+
+		# # print("\nSilinmiş df_g:\n", df_g)
+		return df_g
+
+		# # except:
+			# # print("Hata: Dosya verileri ile Veri Cercevesi olusturulamadı.")
+
+	dosya_verileri(excel_dosyalari[0])
+
+	# # dosya_verileri("Temizlenmiş dosya verileri:\n", excel_dosyalari[0])
+
+
+	# # bayrak_ilk_df = True
+
+	# # for e in excel_dosyalari:
+		# # if bayrak_ilk_df:
+			# # df = dosya_verileri(e)
+			# # bayrak_ilk_df = False
+
+		# # else:
+			# # df_g = dosya_verileri(e)
+			# # df = concat([df, df_g])
+
+
+		# # tum_veriler(e)
+		# # ilk_veri_satiri = ilk_veri_satiri_orj					# Baslangic degerlerine geri don
+		# # satir_kopyala = satir_kopyala_orj						# Baslangic degerlerine geri don
+		# # atlanacak_satir_sayisi = atlanacak_satir_sayisi_orj 	# Baslangic degerlerine geri don
+		# # dongu = dongu_orj
+
+	# # print(veri_cercevesi)
 
 ### Alt Butonlar
 buton_yardim = ttk.Button(pencere, text="Görsel Yardımı Aç", style='info.TButton', command=yardim)
