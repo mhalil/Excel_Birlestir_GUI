@@ -218,6 +218,7 @@ def birlestir():
 
 	print("nihai df:", df)
 	# # return df
+
 	df.to_excel("Birlestirilmis_Veriler.xlsx")
 
 
@@ -236,5 +237,7 @@ pencere.mainloop()
 """
 DUZENLENECEKLER:
 * "sayfa_adi" belirtilmeyecekse ne yapılacak
-*
+* Dongu'ye ait kodlar ve arabirim cikarilacak
+* Kayit dosya adi kodlara eklenecek
+
 """
