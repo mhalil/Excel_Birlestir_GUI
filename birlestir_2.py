@@ -162,7 +162,6 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 		bilgi.config(text=f"Hata: Geçersiz sütun aralığı veya sayfa adı. {str(e)}")
 		return []
 
-	# # print(f"Kopyalanacak sütun aralığı: {sutun_kopyala}")
 	return list(df_g.iloc[baslik_satiri - 2])
 
 
@@ -175,14 +174,14 @@ def dosya_verileri(dosya_adi):
 
 	if isl_sistemi == "posix":
 		dosyanin_adi = dosya_adi.rsplit("/", 1)[1]
+	else:
+		dosyanin_adi = dosya_adi.rsplit("\\", 1)[1]
 
 	df_g["Dosya ADI"] = dosyanin_adi
-
 
 	# silinecek satır numaralarını tespit et.
 	df_satir_sayisi_liste = list(range(df_g.shape[0]))
 	silinecek_satirlar = []
-	print("satir numaraları:", df_satir_sayisi_liste)
 
 	kopyala = satir_kopyala
 	atla = atlanacak_satir_sayisi
@@ -201,7 +200,7 @@ def dosya_verileri(dosya_adi):
 
 ### Excelleri birleştirme Fonksiyonu
 def birlestir():
-	print(baslik())
+	# # print(baslik())
 	dosya_verileri(excel_dosyalari[0])
 
 
