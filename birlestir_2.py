@@ -1,7 +1,7 @@
 from ttkbootstrap import Style
 from tkinter import ttk, filedialog, Tk, Toplevel, Label, PhotoImage, IntVar
 from glob import glob
-from pandas import read_excel, DataFrame, concat #, to_excel,
+from pandas import read_excel, DataFrame, concat
 from os import name
 
 style = Style()
@@ -167,7 +167,7 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 
 ### Sadece bir dosya içerisindeki verileri toplayan fonksiyon
 def dosya_verileri(dosya_adi):
-	df_g = read_excel(dosya_adi, header=None, names=baslik(), skiprows=range(0,ilk_veri_satiri-1), usecols=sutun_kopyala)
+	df_g = read_excel(dosya_adi, header=None, names=baslik(), sheet_name=sayfa_adi , skiprows=range(0,ilk_veri_satiri-1), usecols=sutun_kopyala)
 
 	dosyanin_adi = ""
 	isl_sistemi = name
@@ -194,14 +194,31 @@ def dosya_verileri(dosya_adi):
 
 	# tespit edilen satirlar sil.
 	df_g.drop(silinecek_satirlar, axis = 0, inplace = True)
-	print("\ndf_g:\n", df_g)
+	# # print("\ndf_g:\n", df_g)
 
 	return df_g
 
 ### Excelleri birleştirme Fonksiyonu
 def birlestir():
 	# # print(baslik())
-	dosya_verileri(excel_dosyalari[0])
+	# # dosya_verileri(excel_dosyalari[0])
+	bayrak = True
+	df = DataFrame()	# bos bir veri cercevesi
+	# # print("bos df:", df)
+
+	for excel in excel_dosyalari:
+		if bayrak:
+			df = dosya_verileri(excel)
+			# # print("DF:", df)
+			bayrak = False
+		else:
+			df_g = dosya_verileri(excel)
+			# # print("df_g", df_g)
+			df = concat([df, df_g])
+
+	print("nihai df:", df)
+	# # return df
+	df.to_excel("Birlestirilmis_Veriler.xlsx")
 
 
 ### Alt Butonlar
@@ -215,3 +232,9 @@ bilgi.grid(row=3, column=0, columnspan=2)
 
 
 pencere.mainloop()
+
+"""
+DUZENLENECEKLER:
+* "sayfa_adi" belirtilmeyecekse ne yapılacak
+*
+"""
