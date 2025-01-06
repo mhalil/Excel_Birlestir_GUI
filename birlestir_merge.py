@@ -9,7 +9,7 @@ style = Style(theme='litera')
 
 pencere = style.master
 pencere.title(".:: Excel Birleştir ::. [ Mustafa Halil ]")
-pencere.geometry("525x500+200+100")
+pencere.geometry("525x450+200+100")
 pencere.resizable(width=False, height=False)
 
 excel_dosyalari = []
@@ -68,7 +68,7 @@ ttk.Button(pencere, text="Birleştirilecek dosyaları seçin...", style='primary
 cerceve_parametreler = ttk.LabelFrame(
     pencere,
     width=400,
-    height=450,
+    height=400,
     text="Parametreler")
 cerceve_parametreler.grid(row=1, column=0, pady=5, padx=25, columnspan=2)
 
@@ -116,19 +116,12 @@ entry_kopyalanacak_sutun = ttk.Entry(cerceve_parametreler)
 entry_kopyalanacak_sutun.insert(string="B:G", index=0)
 entry_kopyalanacak_sutun.grid(row=5, column=1, pady=5, padx=25)
 
-etiket_dongu_sayisi = ttk.Label(cerceve_parametreler, text='Döngü Sayısı:')
-etiket_dongu_sayisi.grid(row=6, column=0, pady=5, padx=25, sticky='w')
-
-entry_dongu_sayisi = ttk.Entry(cerceve_parametreler)
-entry_dongu_sayisi.insert(string=10, index=0)
-entry_dongu_sayisi.grid(row=6, column=1, pady=5, padx=25)
-
 kontrol_dosya_adi_degisken = IntVar()
 kontrol_kayit_dosya_adi = ttk.Checkbutton(cerceve_parametreler, text='Kayıt için Dosya Adı Belirt', style='primary.Roundtoggle.Toolbutton', variable=kontrol_dosya_adi_degisken, command=dosya_adi_belirt)
-kontrol_kayit_dosya_adi.grid(row=7, column=0, pady=5, padx=25)
+kontrol_kayit_dosya_adi.grid(row=6, column=0, pady=5, padx=25)
 
 entry_kayit_dosya_adi = ttk.Entry(cerceve_parametreler, state="disabled")
-entry_kayit_dosya_adi.grid(row=7, column=1, pady=5, padx=25)
+entry_kayit_dosya_adi.grid(row=6, column=1, pady=5, padx=25)
 #####
 
 ########## Gerekli Bilgiler   	##########
@@ -138,16 +131,14 @@ ilk_veri_satiri_orj = int(entry_ilk_veri_satiri.get())			# kopyalanacak ilk veri
 satir_kopyala_orj = int(entry_kopyalanacak_satir.get())			# kopyalanacak verilerin bulunduğu satır sayısı. tamsayı değeri olmalı
 sutun_kopyala = entry_kopyalanacak_sutun.get()					# kopyalanacak verilerin bulunduğu sütun aralığı. Örneğin "A:K"
 atlanacak_satir_sayisi_orj = int(entry_atlanacak_satir.get()) 	# ilk veri grubu kopyalandıktan sonra ikinci veri grubuna erişmek için atlanacak satır sayısı.tamsayı değeri olmalı
-# # dongu_orj = int(entry_dongu_sayisi.get())						# veri kopyalarken dosya içerisinde döngüyü kaç kez tekrarlamak istediğinizi belirtin. tamsayı değeri olmalı
 kayit_dosya_adi = entry_kayit_dosya_adi.get()
 # # ####################################################################################
 ilk_veri_satiri = ilk_veri_satiri_orj
 satir_kopyala = satir_kopyala_orj
 atlanacak_satir_sayisi = atlanacak_satir_sayisi_orj
-# # dongu = dongu_orj
 ####################################################################################
 
-### baslik listesi fonksiyonu
+### BASLİK LİSTESİ FONKSİYONU
 def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki hata ChatGPT ile cozuldu.
 	sutun_kopyala = entry_kopyalanacak_sutun.get().strip()
 	if ":" not in sutun_kopyala:
@@ -165,7 +156,7 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 	return list(df_g.iloc[baslik_satiri - 2])
 
 
-### Sadece bir dosya içerisindeki verileri toplayan fonksiyon
+### SADECE BİR DOSYA İÇERİSİNDEKİ VERİLERİ TOPLAYAN FONKSİYON
 def dosya_verileri(dosya_adi):
 	df_g = read_excel(dosya_adi, header=None, names=baslik(), sheet_name=sayfa_adi , skiprows=range(0,ilk_veri_satiri-1), usecols=sutun_kopyala)
 
@@ -179,7 +170,7 @@ def dosya_verileri(dosya_adi):
 
 	df_g["Dosya ADI"] = dosyanin_adi
 
-	# silinecek satır numaralarını tespit et.
+	### SİLİNECEK SATIR NUMARALARINI TESPİT ET.
 	df_satir_sayisi_liste = list(range(df_g.shape[0]))
 	silinecek_satirlar = []
 
@@ -192,16 +183,15 @@ def dosya_verileri(dosya_adi):
 		# # print(silinecek_satirlar)
 		i += (kopyala + atla)
 
-	# tespit edilen satirlar sil.
+	### TESPİT EDİLEN SATİRLAR SİL.
 	df_g.drop(silinecek_satirlar, axis = 0, inplace = True)
 	# # print("\ndf_g:\n", df_g)
 
 	return df_g
 
-### Excelleri birleştirme Fonksiyonu
+### EXCELLERİ BİRLEŞTİRME FONKSİYONU
 def birlestir():
-	# # print(baslik())
-	# # dosya_verileri(excel_dosyalari[0])
+
 	bayrak = True
 	df = DataFrame()	# bos bir veri cercevesi
 	# # print("bos df:", df)
@@ -216,18 +206,24 @@ def birlestir():
 			# # print("df_g", df_g)
 			df = concat([df, df_g])
 
-	print("nihai df:", df)
+	# # print("nihai df:", df)
 	# # return df
+
+	### DOSYAYI KAYDET .
+	# # if len(kontrol_kayit_dosya_adi.state()) == 1 and entry_kayit_dosya_adi.get() != "":
+		# # print(kontrol_kayit_dosya_adi.state(), "dosya adi:", kayit_dosya_adi, "- çek buton aktif ve dosya adi var")
+	# # else:
+		# # print(kontrol_kayit_dosya_adi.state(), "dosya adi:", kayit_dosya_adi, "- çek buton pasif ya da geçerli dosya adı yok")
 
 	df.to_excel("Birlestirilmis_Veriler.xlsx")
 
 
-### Alt Butonlar
+### ALT BUTONLAR
 buton_yardim = ttk.Button(pencere, text="Görsel Yardımı Aç", style='info.TButton', command=yardim)
 buton_yardim.grid(row=2, column=0, pady=5, padx=25)
 ttk.Button(pencere, text="Dosyaları Birleştir", style='primary.TButton', command=birlestir).grid(row=2, column=1, pady=5, padx=25)
 
-### Bilgi Etketi
+### BİLGİ ETKETİ
 bilgi = Label(pencere, text="Bilgi: Program birleştirme işlemi için hazır...")
 bilgi.grid(row=3, column=0, columnspan=2)
 
