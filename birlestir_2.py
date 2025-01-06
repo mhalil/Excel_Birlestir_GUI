@@ -2,6 +2,7 @@ from ttkbootstrap import Style
 from tkinter import ttk, filedialog, Tk, Toplevel, Label, PhotoImage, IntVar
 from glob import glob
 from pandas import read_excel, DataFrame, concat #, to_excel,
+from os import name
 
 style = Style()
 style = Style(theme='litera')
@@ -105,7 +106,7 @@ etiket_atlanacak_satir = ttk.Label(cerceve_parametreler, text='Atlanacak Satır�
 etiket_atlanacak_satir.grid(row=4, column=0, pady=5, padx=25, sticky='w')
 
 entry_atlanacak_satir = ttk.Entry(cerceve_parametreler)
-entry_atlanacak_satir.insert(string=3, index=0)
+entry_atlanacak_satir.insert(string=5, index=0)
 entry_atlanacak_satir.grid(row=4, column=1, pady=5, padx=25)
 
 etiket_kopyalanacak_sutun = ttk.Label(cerceve_parametreler, text='Kopyalanacak Sütunlar:')
@@ -167,23 +168,34 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 
 ### Sadece bir dosya içerisindeki verileri toplayan fonksiyon
 def dosya_verileri(dosya_adi):
-	df_g = read_excel(dosya_adi, header=None, names=baslik(), skiprows=range(0,atlanacak_satir_sayisi+1), usecols=sutun_kopyala)
+	df_g = read_excel(dosya_adi, header=None, names=baslik(), skiprows=range(0,ilk_veri_satiri-1), usecols=sutun_kopyala)
 
-	# # df_satir_sayisi_liste = list(range(df_g.shape[0]))
-	sil_cikar = []
-	# # print("satir numaraları:", df_satir_sayisi_liste)
+	dosyanin_adi = ""
+	isl_sistemi = name
+
+	if isl_sistemi == "posix":
+		dosyanin_adi = dosya_adi.rsplit("/", 1)[1]
+
+	df_g["Dosya ADI"] = dosyanin_adi
+
+
+	# silinecek satır numaralarını tespit et.
+	df_satir_sayisi_liste = list(range(df_g.shape[0]))
+	silinecek_satirlar = []
+	print("satir numaraları:", df_satir_sayisi_liste)
 
 	kopyala = satir_kopyala
 	atla = atlanacak_satir_sayisi
 
-	# # for i in range(df_g.shape[0]):
-		# # sil_cikar.append(i)
-	# # for y in range(kopyala):
-		# # sil_cikar.append(y)
+	i = satir_kopyala
+	while i < len(df_satir_sayisi_liste):
+		silinecek_satirlar.extend(df_satir_sayisi_liste[i:i+atla])
+		# # print(silinecek_satirlar)
+		i += (kopyala + atla)
 
-
+	# tespit edilen satirlar sil.
+	df_g.drop(silinecek_satirlar, axis = 0, inplace = True)
 	print("\ndf_g:\n", df_g)
-	# # print("satir numaraları:", sil_cikar)
 
 	return df_g
 
