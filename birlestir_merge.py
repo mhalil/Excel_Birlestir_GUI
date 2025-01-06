@@ -147,7 +147,7 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 
 	secili_sutun = sutun_kopyala if sutun_kopyala else None
 	try:
-		df_g = read_excel(excel_dosyalari[0], sheet_name=sayfa_adi, usecols=secili_sutun)
+		df_g = read_excel(excel_dosyalari[0], sheet_name=sayfa_adi, usecols=secili_sutun)		# ****** burası da revize edilecek. sayfa_adi olmayan secenek te eklenecek
 
 	except ValueError as e:
 		bilgi.config(text=f"Hata: Geçersiz sütun aralığı veya sayfa adı. {str(e)}")
@@ -158,7 +158,7 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 
 ### SADECE BİR DOSYA İÇERİSİNDEKİ VERİLERİ TOPLAYAN FONKSİYON
 def dosya_verileri(dosya_adi):
-	df_g = read_excel(dosya_adi, header=None, names=baslik(), sheet_name=sayfa_adi , skiprows=range(0,ilk_veri_satiri-1), usecols=sutun_kopyala)
+	df_g = read_excel(dosya_adi, header=None, names=baslik(), sheet_name=sayfa_adi , skiprows=range(0,ilk_veri_satiri-1), usecols=sutun_kopyala)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
 
 	dosyanin_adi = ""
 	isl_sistemi = name
