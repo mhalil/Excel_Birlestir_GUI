@@ -96,14 +96,14 @@ entry_ilk_veri_satiri = ttk.Entry(cerceve_parametreler)
 entry_ilk_veri_satiri.insert(string=5, index=0)
 entry_ilk_veri_satiri.grid(row=2, column=1, pady=5, padx=25)
 
-etiket_kopyalanacak_satir = ttk.Label(cerceve_parametreler, text='Kopyalanacak Satır Sayısı:')
+etiket_kopyalanacak_satir = ttk.Label(cerceve_parametreler, text='Veri Barındıran Satır Sayısı:')
 etiket_kopyalanacak_satir.grid(row=3, column=0, pady=5, padx=25, sticky='w')
 
 entry_kopyalanacak_satir = ttk.Entry(cerceve_parametreler)
 entry_kopyalanacak_satir.insert(string=7, index=0)
 entry_kopyalanacak_satir.grid(row=3, column=1, pady=5, padx=25)
 
-etiket_atlanacak_satir = ttk.Label(cerceve_parametreler, text='Atlanacak Satırı Sayısı:')
+etiket_atlanacak_satir = ttk.Label(cerceve_parametreler, text='Silinecek Satır Sayısı:')
 etiket_atlanacak_satir.grid(row=4, column=0, pady=5, padx=25, sticky='w')
 
 entry_atlanacak_satir = ttk.Entry(cerceve_parametreler)
