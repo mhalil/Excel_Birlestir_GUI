@@ -9,7 +9,7 @@ style = Style(theme='litera')
 
 pencere = style.master
 pencere.title(".:: Excel Birleştir ::. [ Mustafa Halil ]")
-pencere.geometry("500x410+200+100")
+pencere.geometry("500x410+500+250")
 pencere.resizable(width=False, height=False)
 
 excel_dosyalari = []
@@ -36,15 +36,15 @@ def klasor_sec():
 def kayit_icin_sec():
 	kayit_dosya_adi = filedialog.asksaveasfile(filetypes=[('Excel 2007-365', '*.xlsx'), ('Excel 97-2003', '*.xls'), ('All Files', '*.*')])
 
-	if kayit_dosya_adi.name:
-		messagebox.showinfo(title="Kayıt yeri ve dosya adı", message=f"Birleştirilecek dosyaların kayıt yeri ve adı:\n{kayit_dosya_adi.name}")
+	# # if kayit_dosya_adi.name:
+		# # messagebox.showinfo(title="Kayıt yeri ve dosya adı", message=f"Birleştirilecek dosyaların kayıt yeri ve adı:\n{kayit_dosya_adi.name}")
 	return kayit_dosya_adi.name
 
 
 ### Yardım penceresi görüntüleme Fonksiyonu
 def yardim():
 	yardim_penceresi = Toplevel()
-	yardim_penceresi.geometry("850x700+725+100")
+	yardim_penceresi.geometry("850x700+600+100")
 	yardim_penceresi.title(".:: GÖRSEL YARDIM ::.")
 	resim = PhotoImage(file="resimler/parametreler.png")
 	etiket_resim = Label(yardim_penceresi, image=resim).pack()
@@ -204,6 +204,7 @@ def birlestir():
 	ad = kayit_icin_sec()
 	if ad:
 		df.to_excel(ad)
+	print("Birleştirme işlemi gerçekleşti...")
 
 ### ALT BUTONLAR
 buton_yardim = ttk.Button(pencere, text="Görsel Yardımı Aç", style='info.TButton', command=yardim)
