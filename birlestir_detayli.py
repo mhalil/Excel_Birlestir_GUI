@@ -1,5 +1,5 @@
 from ttkbootstrap import Style
-from tkinter import ttk, filedialog, Tk, Toplevel, Label, PhotoImage, IntVar
+from tkinter import ttk, filedialog, Tk, Toplevel, Label, PhotoImage, IntVar, messagebox
 from glob import glob
 from pandas import read_excel, DataFrame, concat
 from os import name
@@ -9,7 +9,7 @@ style = Style(theme='litera')
 
 pencere = style.master
 pencere.title(".:: Excel Birleştir ::. [ Mustafa Halil ]")
-pencere.geometry("525x450+200+100")
+pencere.geometry("500x410+200+100")
 pencere.resizable(width=False, height=False)
 
 excel_dosyalari = []
@@ -32,6 +32,14 @@ def klasor_sec():
 	else:
 		bilgi.config(text="Seçilen klasörde hiç Excel dosyası bulunamadı.")
 
+### Kayıt için Klasör ve Dosya Seçme Fonksiyonu
+def kayit_icin_sec():
+	kayit_dosya_adi = filedialog.asksaveasfile(filetypes=[('Excel 2007-365', '*.xlsx'), ('Excel 97-2003', '*.xls'), ('All Files', '*.*')])
+
+	if kayit_dosya_adi.name:
+		messagebox.showinfo(title="Kayıt yeri ve dosya adı", message=f"Birleştirilecek dosyaların kayıt yeri ve adı:\n{kayit_dosya_adi.name}")
+	return kayit_dosya_adi.name
+
 
 ### Yardım penceresi görüntüleme Fonksiyonu
 def yardim():
@@ -49,13 +57,6 @@ def sayfa_adi_belirt():
 		# # entry_sayfa_adi.insert(string="birden fazla sayfa için aralarına - koyarak yazın", index=0)
 	else:
 		entry_sayfa_adi.config(state='disabled')
-
-
-def dosya_adi_belirt():
-	if kontrol_dosya_adi_degisken.get():
-		entry_kayit_dosya_adi.config(state='normal')
-	else:
-		entry_kayit_dosya_adi.config(state='disabled')
 
 
 ########### ARABİRİM OLUSTURULUYOR###########
@@ -116,12 +117,6 @@ entry_kopyalanacak_sutun = ttk.Entry(cerceve_parametreler)
 entry_kopyalanacak_sutun.insert(string="B:G", index=0)
 entry_kopyalanacak_sutun.grid(row=5, column=1, pady=5, padx=25)
 
-kontrol_dosya_adi_degisken = IntVar()
-kontrol_kayit_dosya_adi = ttk.Checkbutton(cerceve_parametreler, text='Kayıt için Dosya Adı Belirt', style='primary.Roundtoggle.Toolbutton', variable=kontrol_dosya_adi_degisken, command=dosya_adi_belirt)
-kontrol_kayit_dosya_adi.grid(row=6, column=0, pady=5, padx=25)
-
-entry_kayit_dosya_adi = ttk.Entry(cerceve_parametreler, state="disabled")
-entry_kayit_dosya_adi.grid(row=6, column=1, pady=5, padx=25)
 #####
 
 ########## Gerekli Bilgiler   	##########
@@ -131,7 +126,6 @@ ilk_veri_satiri_orj = int(entry_ilk_veri_satiri.get())			# kopyalanacak ilk veri
 satir_kopyala_orj = int(entry_kopyalanacak_satir.get())			# kopyalanacak verilerin bulunduğu satır sayısı. tamsayı değeri olmalı
 sutun_kopyala = entry_kopyalanacak_sutun.get()					# kopyalanacak verilerin bulunduğu sütun aralığı. Örneğin "A:K"
 atlanacak_satir_sayisi_orj = int(entry_atlanacak_satir.get()) 	# ilk veri grubu kopyalandıktan sonra ikinci veri grubuna erişmek için atlanacak satır sayısı.tamsayı değeri olmalı
-kayit_dosya_adi = entry_kayit_dosya_adi.get()
 # # ####################################################################################
 ilk_veri_satiri = ilk_veri_satiri_orj
 satir_kopyala = satir_kopyala_orj
@@ -158,7 +152,11 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 
 ### SADECE BİR DOSYA İÇERİSİNDEKİ VERİLERİ TOPLAYAN FONKSİYON
 def dosya_verileri(dosya_adi):
-	df_g = read_excel(dosya_adi, header=None, names=baslik(), sheet_name=sayfa_adi , skiprows=range(0,ilk_veri_satiri-1), usecols=sutun_kopyala)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
+
+	if (kontrol_sayfa_adi.get() == 1):
+		df_g = read_excel(dosya_adi, header=None, names=baslik(), sheet_name=sayfa_adi , skiprows=range(0,ilk_veri_satiri-1), usecols=sutun_kopyala)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
+	else:
+		df_g = read_excel(dosya_adi, header=None, names=baslik(), skiprows=range(0,ilk_veri_satiri-1), usecols=sutun_kopyala)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
 
 	dosyanin_adi = ""
 	isl_sistemi = name
@@ -191,32 +189,21 @@ def dosya_verileri(dosya_adi):
 
 ### EXCELLERİ BİRLEŞTİRME FONKSİYONU
 def birlestir():
-
 	bayrak = True
 	df = DataFrame()	# bos bir veri cercevesi
-	# # print("bos df:", df)
 
 	for excel in excel_dosyalari:
 		if bayrak:
 			df = dosya_verileri(excel)
-			# # print("DF:", df)
 			bayrak = False
 		else:
 			df_g = dosya_verileri(excel)
-			# # print("df_g", df_g)
 			df = concat([df, df_g])
 
-	# # print("nihai df:", df)
-	# # return df
-
-	### DOSYAYI KAYDET .
-	# # if len(kontrol_kayit_dosya_adi.state()) == 1 and entry_kayit_dosya_adi.get() != "":
-		# # print(kontrol_kayit_dosya_adi.state(), "dosya adi:", kayit_dosya_adi, "- çek buton aktif ve dosya adi var")
-	# # else:
-		# # print(kontrol_kayit_dosya_adi.state(), "dosya adi:", kayit_dosya_adi, "- çek buton pasif ya da geçerli dosya adı yok")
-
-	df.to_excel("Birlestirilmis_Veriler.xlsx")
-
+	### DOSYAYI KAYDET
+	ad = kayit_icin_sec()
+	if ad:
+		df.to_excel(ad)
 
 ### ALT BUTONLAR
 buton_yardim = ttk.Button(pencere, text="Görsel Yardımı Aç", style='info.TButton', command=yardim)
@@ -232,8 +219,5 @@ pencere.mainloop()
 
 """
 DUZENLENECEKLER:
-* "sayfa_adi" belirtilmeyecekse ne yapılacak
-* Dongu'ye ait kodlar ve arabirim cikarilacak
-* Kayit dosya adi kodlara eklenecek
-
+* "sayfa_adi" olmayan dosyaları listeden çıkar
 """
