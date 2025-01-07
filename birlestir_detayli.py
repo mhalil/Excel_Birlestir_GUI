@@ -3,6 +3,7 @@ from tkinter import ttk, filedialog, Tk, Toplevel, Label, PhotoImage, IntVar, me
 from glob import glob
 from pandas import read_excel, DataFrame, concat
 from os import name
+import xlrd
 
 style = Style()
 style = Style(theme='litera')
@@ -24,9 +25,8 @@ def klasor_sec():
 
 	xls = klasor_adi + "/*.xls*"
 	excel_dosyalari = glob(xls)	# liste veri yapısı. Tam yol ve dosya adı icerir.
-	# # print(excel_dosyalari)
 
-	# Dosya sayısını bilgi etiketi üzerinde göster
+	### Dosya sayısını bilgi etiketi üzerinde göster
 	if excel_dosyalari:
 		bilgi.config(text=f"Seçilen klasörde Toplam {len(excel_dosyalari)} adet Excel dosyası bulundu.")
 	else:
@@ -36,9 +36,8 @@ def klasor_sec():
 def kayit_icin_sec():
 	kayit_dosya_adi = filedialog.asksaveasfile(filetypes=[('Excel 2007-365', '*.xlsx'), ('Excel 97-2003', '*.xls'), ('All Files', '*.*')])
 
-	# # if kayit_dosya_adi.name:
-		# # messagebox.showinfo(title="Kayıt yeri ve dosya adı", message=f"Birleştirilecek dosyaların kayıt yeri ve adı:\n{kayit_dosya_adi.name}")
-	return kayit_dosya_adi.name
+	if kayit_dosya_adi:
+		return kayit_dosya_adi.name
 
 
 ### Yardım penceresi görüntüleme Fonksiyonu
@@ -51,6 +50,7 @@ def yardim():
 	yardim_penceresi.mainloop()
 
 
+### Sayfa Adı belirtme/belirtmeme Fonksiyonu
 def sayfa_adi_belirt():
 	if kontrol_sayfa_adi.get():
 		entry_sayfa_adi.config(state='normal')
@@ -65,7 +65,7 @@ def sayfa_adi_belirt():
 ttk.Label(pencere, text='Excel dosyalarını seç:').grid(row=0, column=0, pady=5, padx=20)
 ttk.Button(pencere, text="Birleştirilecek dosyaları seçin...", style='primary.TButton', command=klasor_sec).grid(row=0, column=1, pady=5, padx=25)
 
-### Çerçeve
+### Çerçeve (Frame)
 cerceve_parametreler = ttk.LabelFrame(
     pencere,
     width=400,
@@ -154,7 +154,12 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 def dosya_verileri(dosya_adi):
 
 	if (kontrol_sayfa_adi.get() == 1):
-		df_g = read_excel(dosya_adi, header=None, names=baslik(), sheet_name=sayfa_adi , skiprows=range(0,ilk_veri_satiri-1), usecols=sutun_kopyala)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
+		try:
+			df_g = read_excel(dosya_adi, header=None, names=baslik(), sheet_name=sayfa_adi , skiprows=range(0,ilk_veri_satiri-1), usecols=sutun_kopyala)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
+		except:
+			messagebox.showwarning(title="Sayfa Adı Hatası", message=f"{dosya_adi} dosyası içerisinde '{sayfa_adi}' isimli sayfa bulunmamaktadır")
+			df_g = DataFrame()
+
 	else:
 		df_g = read_excel(dosya_adi, header=None, names=baslik(), skiprows=range(0,ilk_veri_satiri-1), usecols=sutun_kopyala)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
 
@@ -183,7 +188,6 @@ def dosya_verileri(dosya_adi):
 
 	### TESPİT EDİLEN SATİRLAR SİL.
 	df_g.drop(silinecek_satirlar, axis = 0, inplace = True)
-	# # print("\ndf_g:\n", df_g)
 
 	return df_g
 
@@ -204,7 +208,7 @@ def birlestir():
 	ad = kayit_icin_sec()
 	if ad:
 		df.to_excel(ad)
-	print("Birleştirme işlemi gerçekleşti...")
+	print("İşlem gerçekleşti / iptal edildi")
 
 ### ALT BUTONLAR
 buton_yardim = ttk.Button(pencere, text="Görsel Yardımı Aç", style='info.TButton', command=yardim)
@@ -219,6 +223,7 @@ bilgi.grid(row=3, column=0, columnspan=2)
 pencere.mainloop()
 
 """
-DUZENLENECEKLER:
-* "sayfa_adi" olmayan dosyaları listeden çıkar
+EKLENECEK ÖZELLİKLER:
+* Birden fazla sayfa için aralarına ; koyarak yazın.
+* widget ve değişkenleri kontrol et kullanılmayanları sil
 """
