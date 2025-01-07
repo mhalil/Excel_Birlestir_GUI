@@ -44,15 +44,16 @@ Bu anlatımda 4 adet dosya (**D1.xlsx, D2.xlsx, D3.xlsx** ve **D4.xls**) kullan�
 
 * **Başlık Satırı Numarası** : Excel dosyasında başlık olarsak kullanılacak olan satır numarasını belirtmelisiniz. Geçerli Tamsayı değeri olmalı (örneğin: 4 )
 
-* **İlk Veri Satırı Numarası** : Excel dosyasında ilk Verinin seçilmesi için kaç satır atlamak (görmezden gelmek) istediğimizi belirttiğimiz parametre. Tamsayı değeri olmalı (örneğin: 3 )
+* **İlk Veri Satırı Numarası** : Excel dosyasında ilk Verinin seçilmesi için kaç satır atlamak (görmezden gelmek) istediğimizi belirttiğimiz parametre. Tamsayı değeri olmalı (örneğin: 5 )
 
-* **Kopyalanacak Veri Satırı** : Excel dosyasında kaç satırlık verinin seçilmesi gerektiğini belirttiğimiz parametre. Tamsayı değeri olmalı (örneğin: 7 )
+* **Veri Barındıran Satır Sayısı** : Excel dosyasında kaç satırlık verinin seçilmesi gerektiğini belirttiğimiz parametre. Tamsayı değeri olmalı (örneğin: 7 )
 
-* **Atlanacak Satır Numarası** : İlk veri seçildikten sonra, ikinci veri için kaç satır veriyi atlamak (görmezden gelmek) istediğimizi belirttiğimiz parametre. Tamsayı değeri olmalı (örneğin: 4 )
+* **Silinecek Satır Sayısı** : İlk veri seçildikten sonra, ikinci veri için kaç satır veriyi atlamak (görmezden gelmek) istediğimizi belirttiğimiz parametre. Tamsayı değeri olmalı (örneğin: 5 )
+
 
 * **Kopyalanacak Sütunlar**  : Excel dosyasında kopyalanacak verilerin hangi sütun aralığında olduğunu belirttiğimiz parametre. (örneğin: "B:G" )
 
-* **Döngü Sayısı** : Excel dosyasında kopyalanacak veri kümesinden kaç adet olduğunu, yani kopyalama döngüsünün kaç kez tekrarlanmasını istediğimizi belirttiğimiz parametre. Tamsayı değeri olmalı. Büyük değer belirtmek sorun oluşturmaz. Küçük değer belirtilirse, yeteri kadar veri kopyalanamaz. (örneğin: 20 )
+**<u>NOT:</u>** **Veri Barındıran Satır Sayısı** ve **Silinecek Satır Sayısı** değerleri ardışık olarak düzenli bir şekilde devam etmelidir. Yani İlk veri gurubu 7 satırdan oluşup ardından 5 satır silinecek veri bulunuyorsa, yapı sürekli bu şekilde (7-5 - 7-5 - 7-5, ...) devam etmelidir.
 
 ## SONUÇ
 
