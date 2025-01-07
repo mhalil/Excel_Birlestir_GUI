@@ -23,8 +23,9 @@ def klasor_sec():
 	global excel_dosyalari
 	klasor_adi = filedialog.askdirectory()
 
-	xls = klasor_adi + "/*.xls*"
-	excel_dosyalari = glob(xls)	# liste veri yapısı. Tam yol ve dosya adı icerir.
+	if klasor_adi:
+		xls = klasor_adi + "/*.xls*"
+		excel_dosyalari = glob(xls)	# liste veri yapısı. Tam yol ve dosya adı icerir.
 
 	### Dosya sayısını bilgi etiketi üzerinde göster
 	if excel_dosyalari:
@@ -213,7 +214,7 @@ def birlestir():
 ### ALT BUTONLAR
 buton_yardim = ttk.Button(pencere, text="Görsel Yardımı Aç", style='info.TButton', command=yardim)
 buton_yardim.grid(row=2, column=0, pady=5, padx=25)
-ttk.Button(pencere, text="Dosyaları Birleştir", style='primary.TButton', command=birlestir).grid(row=2, column=1, pady=5, padx=25)
+ttk.Button(pencere, text="Dosyaları Birleştir ve Kaydet...", style='primary.TButton', command=birlestir).grid(row=2, column=1, pady=5, padx=25)
 
 ### BİLGİ ETKETİ
 bilgi = Label(pencere, text="Bilgi: Program birleştirme işlemi için hazır...")
@@ -226,4 +227,5 @@ pencere.mainloop()
 EKLENECEK ÖZELLİKLER:
 * Birden fazla sayfa için aralarına ; koyarak yazın.
 * widget ve değişkenleri kontrol et kullanılmayanları sil
+* entry'lere girilen değerleri kontrol eden yapıyı kur / kontrol et
 """
