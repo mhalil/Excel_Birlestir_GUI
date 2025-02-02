@@ -161,9 +161,9 @@ entry_kopyalanacak_sutun.grid(row = 5, column = 1, pady = 5, padx = 25)
 ### BASLİK LİSTESİ FONKSİYONU
 def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki hata ChatGPT ile cozuldu.
 	sayfa_adi = entry_sayfa_adi.get()
-	secili_sutun = entry_kopyalanacak_sutun.get().strip() if entry_kopyalanacak_sutun.get().strip() else None
-	kopyalanacak_sutun = entry_kopyalanacak_sutun.get().strip()
+	kopyalanacak_sutun = entry_kopyalanacak_sutun.get().strip() if entry_kopyalanacak_sutun.get().strip() else None
 	baslik_satiri = int(entry_baslik_satiri.get()) - 2
+	baslik = list()
 
 	if ":" not in kopyalanacak_sutun:
 		bilgi.config(text = "Hata: Kopyalanacak sütun aralığını doğru formatta belirtin (örnek: B:G).")
@@ -171,14 +171,15 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 
 	else:
 		for excel in excel_dosyalari:
+			print(excel, excel_sayfa_adlari(excel))			# gecici, silinecek
 			if sayfa_adi in excel_sayfa_adlari(excel):
 				df_g = read_excel(excel_dosyalari[0],
 									sheet_name = 0 if sayfa_adi == "0" else sayfa_adi,
-									usecols = secili_sutun)
+									usecols = kopyalanacak_sutun)
 				print("Baslık:", list(df_g.iloc[baslik_satiri]))
-				return list(df_g.iloc[baslik_satiri])
-				continue
-
+				baslik = list(df_g.iloc[baslik_satiri])
+				break
+	return baslik
 
 ### SADECE BİR DOSYA İÇERİSİNDEKİ VERİLERİ TOPLAYAN FONKSİYON
 def dosya_verileri(dosya_adi):
@@ -265,7 +266,8 @@ buton_yardim.grid(row = 2, column = 0, pady = 5, padx = 25)
 ttk.Button(pencere,
 			text = "Dosyaları Birleştir ve Kaydet...",
 			style = 'primary.TButton',
-			command = baslik).grid(row = 2, column = 1, pady = 5, padx = 25)		# command = birlestir
+			# # command = baslik).grid(row = 2, column = 1, pady = 5, padx = 25)		# command = birlestir
+			command = birlestir).grid(row = 2, column = 1, pady = 5, padx = 25)
 
 ### BİLGİ ETKETİ
 bilgi = Label(pencere,
