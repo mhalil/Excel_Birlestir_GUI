@@ -36,8 +36,15 @@ def klasor_sec():
 
 ### excel_dosyalari listesini, belirtilen sayfa_adı'na göre guncelle
 def excel_sayfa_adlari(excel_dosyasi):
+	# # global excel_dosyalari
+
+	# # for dosya in excel_dosyalari:
+		# # sayfa_adlari = ExcelFile(dosya).sheet_names
+		# # print(dosya, sayfa_adlari)
+		# # return sayfa_adlari
 	sayfa_adlari = ExcelFile(excel_dosyasi).sheet_names
 	return sayfa_adlari
+
 
 ### Kayıt için Klasör ve Dosya Seçme Fonksiyonu
 def kayit_icin_sec():
@@ -61,7 +68,7 @@ def yardim():
 def sayfa_adi_belirt():
 	if kontrol_sayfa_adi.get():
 		entry_sayfa_adi.config(state = 'normal')
-
+		# # entry_sayfa_adi.insert(string = "birden fazla sayfa için aralarına - koyarak yazın", index = 0)
 	else:
 		entry_sayfa_adi.config(state = 'disabled')
 
@@ -92,7 +99,7 @@ kontrol_sayfa_belirt = ttk.Checkbutton(cerceve_parametreler,
 kontrol_sayfa_belirt.grid(row = 0, column = 0, pady = 5, padx = 25)
 
 entry_sayfa_adi = ttk.Entry(cerceve_parametreler)
-# # entry_sayfa_adi.insert(string = 0, index = 0)
+entry_sayfa_adi.insert(string = 0, index = 0)
 entry_sayfa_adi.config(state = "disabled")
 entry_sayfa_adi.grid(row = 0, column = 1, pady = 5, padx = 25)
 
@@ -138,6 +145,19 @@ entry_kopyalanacak_sutun.grid(row = 5, column = 1, pady = 5, padx = 25)
 
 #####
 
+########## Gerekli Bilgiler   	##########
+# # sayfa_adi = entry_sayfa_adi.get()								# kopyalanacak verilerin bulunduğu sayfa adı
+# # baslik_satiri = int(entry_baslik_satiri.get())					# başlık olarak kullanılacak satır numarası. tamsayı değeri olmalı
+# # ilk_veri_satiri_orj = int(entry_ilk_veri_satiri.get())			# kopyalanacak ilk verinin bulunduğu satır numarası. tamsayı değeri olmalı
+# # satir_kopyala_orj = int(entry_kopyalanacak_satir.get())			# kopyalanacak verilerin bulunduğu satır sayısı. tamsayı değeri olmalı
+# # sutun_kopyala = entry_kopyalanacak_sutun.get()					# kopyalanacak verilerin bulunduğu sütun aralığı. Örneğin "A:K"
+# # atlanacak_satir_sayisi_orj = int(entry_atlanacak_satir.get()) 	# ilk veri grubu kopyalandıktan sonra ikinci veri grubuna erişmek için atlanacak satır sayısı.tamsayı değeri olmalı
+# # ####################################################################################
+# # ilk_veri_satiri = ilk_veri_satiri_orj
+# # satir_kopyala = satir_kopyala_orj
+# # atlanacak_satir_sayisi = atlanacak_satir_sayisi_orj
+####################################################################################
+
 ### BASLİK LİSTESİ FONKSİYONU
 def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki hata ChatGPT ile cozuldu.
 	sayfa_adi = entry_sayfa_adi.get()
@@ -145,97 +165,95 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 	baslik_satiri = int(entry_baslik_satiri.get()) - 2
 	baslik = list()
 
-	for excel in excel_dosyalari:
-		# # print("kontrol_sayfa_adi:" , kontrol_sayfa_adi.get())		# silinecek
-		if kontrol_sayfa_adi.get() == 0:
-			df_g = read_excel(excel,
-								sheet_name = 0,
-								usecols = kopyalanacak_sutun)
-			# # print("BASLIK SATIRI", baslik_satiri)		# silinecek
-			baslik = list(df_g.iloc[baslik_satiri])
-			break
+	if ":" not in kopyalanacak_sutun:
+		bilgi.config(text = "Hata: Kopyalanacak sütun aralığını doğru formatta belirtin (örnek: B:G).")
+		return []
 
-		elif kontrol_sayfa_adi.get() == 1 and sayfa_adi in excel_sayfa_adlari(excel):
-			df_g = read_excel(excel,
-								sheet_name = 0 if sayfa_adi == "0" else sayfa_adi,
-								usecols = kopyalanacak_sutun)
-			baslik = list(df_g.iloc[baslik_satiri])
-			break
-	print("B A S L I K:", baslik)
+	else:
+		for excel in excel_dosyalari:
+			print(excel, excel_sayfa_adlari(excel))			# gecici, silinecek
+			if sayfa_adi in excel_sayfa_adlari(excel):
+				df_g = read_excel(excel_dosyalari[0],
+									sheet_name = 0 if sayfa_adi == "0" else sayfa_adi,
+									usecols = kopyalanacak_sutun)
+				print("Baslık:", list(df_g.iloc[baslik_satiri]))
+				baslik = list(df_g.iloc[baslik_satiri])
+				break
 	return baslik
 
 ### SADECE BİR DOSYA İÇERİSİNDEKİ VERİLERİ TOPLAYAN FONKSİYON
-# # def dosya_verileri(dosya_adi):
-	# # sayfa_adi = entry_sayfa_adi.get()
-	# # ilk_veri_satiri = int(entry_ilk_veri_satiri.get())
-	# # kopyalanacak_sutun = entry_kopyalanacak_sutun.get().strip()
+def dosya_verileri(dosya_adi):
+	sayfa_adi = entry_sayfa_adi.get()
+	ilk_veri_satiri = int(entry_ilk_veri_satiri.get())
+	kopyalanacak_sutun = entry_kopyalanacak_sutun.get().strip()
 
-	# # if (kontrol_sayfa_adi.get() == 1):
-		# # try:
-			# # df_g = read_excel(dosya_adi,
-								# # header = None,
-								# # names = baslik(),
-								# # sheet_name = 0 if sayfa_adi == "0" else sayfa_adi,
-								# # skiprows = range(0, ilk_veri_satiri - 1),
-								# # usecols = kopyalanacak_sutun)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
-		# # except:
-			# # messagebox.showwarning(title = "Sayfa Adı Hatası",
-									# # message = f"{dosya_adi} dosyası içerisinde '{sayfa_adi}' isimli sayfa bulunmamaktadır")
-			# # df_g = DataFrame()
+	if (kontrol_sayfa_adi.get() == 1):
+		try:
+			df_g = read_excel(dosya_adi,
+								header = None,
+								names = baslik(),
+								sheet_name = 0 if sayfa_adi == "0" else sayfa_adi,
+								skiprows = range(0, ilk_veri_satiri - 1),
+								usecols = kopyalanacak_sutun)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
+		except:
+			messagebox.showwarning(title = "Sayfa Adı Hatası",
+									message = f"{dosya_adi} dosyası içerisinde '{sayfa_adi}' isimli sayfa bulunmamaktadır")
+			df_g = DataFrame()
 
-	# # else:
-		# # df_g = read_excel(dosya_adi,
-							# # header = None,
-							# # names = baslik(),
-							# # skiprows = range(0, ilk_veri_satiri - 1),
-							# # usecols = kopyalanacak_sutun)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
+	else:
+		df_g = read_excel(dosya_adi,
+							header = None,
+							names = baslik(),
+							skiprows = range(0, ilk_veri_satiri - 1),
+							usecols = kopyalanacak_sutun)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
 
-	# # dosyanin_adi = ""
-	# # isl_sistemi = name
+	dosyanin_adi = ""
+	isl_sistemi = name
 
-	# # if isl_sistemi == "posix":
-		# # dosyanin_adi = dosya_adi.rsplit("/", 1)[1]
+	if isl_sistemi == "posix":
+		dosyanin_adi = dosya_adi.rsplit("/", 1)[1]
 
-	# # else:
-		# # dosyanin_adi = dosya_adi.rsplit("\\", 1)[1]
+	else:
+		dosyanin_adi = dosya_adi.rsplit("\\", 1)[1]
 
-	# # df_g["Dosya ADI"] = dosyanin_adi
+	df_g["Dosya ADI"] = dosyanin_adi
 
-	# # ### SİLİNECEK SATIR NUMARALARINI TESPİT ET.
-	# # df_satir_sayisi_liste = list(range(df_g.shape[0]))
-	# # silinecek_satirlar = []
+	### SİLİNECEK SATIR NUMARALARINI TESPİT ET.
+	df_satir_sayisi_liste = list(range(df_g.shape[0]))
+	silinecek_satirlar = []
 
-	# # kopyala = int(entry_kopyalanacak_satir.get())
-	# # atla = int(entry_atlanacak_satir.get())
+	kopyala = int(entry_kopyalanacak_satir.get())
+	atla = int(entry_atlanacak_satir.get())
 
-	# # i = int(entry_kopyalanacak_satir.get())
-	# # while i < len(df_satir_sayisi_liste):
-		# # silinecek_satirlar.extend(df_satir_sayisi_liste[i:i+atla])
-		# # i += (kopyala + atla)
+	i = int(entry_kopyalanacak_satir.get())
+	while i < len(df_satir_sayisi_liste):
+		silinecek_satirlar.extend(df_satir_sayisi_liste[i:i+atla])
+		# # print(silinecek_satirlar)
+		i += (kopyala + atla)
 
-	# # ### TESPİT EDİLEN SATİRLAR SİL.
-	# # df_g.drop(silinecek_satirlar, axis = 0, inplace = True)
+	### TESPİT EDİLEN SATİRLAR SİL.
+	df_g.drop(silinecek_satirlar, axis = 0, inplace = True)
 
-	# # return df_g
+	return df_g
 
 ### EXCELLERİ BİRLEŞTİRME FONKSİYONU
-# # def birlestir():
-	# # bayrak = True
-	# # df = DataFrame()	# bos bir veri cercevesi
+def birlestir():
+	bayrak = True
+	df = DataFrame()	# bos bir veri cercevesi
 
-	# # for excel in excel_dosyalari:
-		# # if bayrak:
-			# # df = dosya_verileri(excel)
-			# # bayrak = False
-		# # else:
-			# # df_g = dosya_verileri(excel)
-			# # df = concat([df, df_g])
+	for excel in excel_dosyalari:
+		if bayrak:
+			df = dosya_verileri(excel)
+			bayrak = False
+		else:
+			df_g = dosya_verileri(excel)
+			df = concat([df, df_g])
 
-	# # ### DOSYAYI KAYDET
-	# # ad = kayit_icin_sec()
-	# # if ad:
-		# # df.to_excel(ad)
-	# # print("İşlem gerçekleşti / iptal edildi")
+	### DOSYAYI KAYDET
+	ad = kayit_icin_sec()
+	if ad:
+		df.to_excel(ad)
+	print("İşlem gerçekleşti / iptal edildi")
 
 
 ### ALT BUTONLAR
@@ -258,3 +276,10 @@ bilgi.grid(row = 3, column = 0, columnspan = 2)
 
 
 pencere.mainloop()
+
+"""
+EKLENECEK ÖZELLİKLER:
+* Birden fazla sayfa için aralarına ; koyarak yazın.
+* widget ve değişkenleri kontrol et kullanılmayanları sil
+* entry'lere girilen değerleri kontrol eden yapıyı kur / kontrol et
+"""
