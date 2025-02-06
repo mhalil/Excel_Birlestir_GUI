@@ -139,6 +139,29 @@ entry_kopyalanacak_sutun.grid(row = 5, column = 1, pady = 5, padx = 25)
 #####
 
 ### BASLİK LİSTESİ FONKSİYONU
+def baslik(dosya):  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki hata ChatGPT ile cozuldu.
+# # def baslik(dosya = "/home/halil/Documents/GitHub/Excel_Birlestir_GUI/D1.xlsx"):  # silinecek
+	sayfa_adi = entry_sayfa_adi.get()
+	kopyalanacak_sutun = entry_kopyalanacak_sutun.get().strip() if entry_kopyalanacak_sutun.get().strip() else None
+	baslik_satiri = int(entry_baslik_satiri.get()) - 2
+	baslik = list()
+
+	if kontrol_sayfa_adi.get() == 0:
+		df_g = read_excel(dosya,
+							sheet_name = 0,
+							usecols = kopyalanacak_sutun)
+		# # print("BASLIK SATIRI", baslik_satiri)		# silinecek
+		baslik = list(df_g.iloc[baslik_satiri])
+
+	elif kontrol_sayfa_adi.get() == 1 and sayfa_adi in excel_sayfa_adlari(dosya):
+		df_g = read_excel(dosya,
+							sheet_name = 0 if sayfa_adi == "0" else sayfa_adi,
+							usecols = kopyalanacak_sutun)
+		baslik = list(df_g.iloc[baslik_satiri])
+	print("B A S L I K:", baslik)		# silinecek
+	return baslik
+
+""" YEDEK ORJ FONKSIYON
 def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki hata ChatGPT ile cozuldu.
 	sayfa_adi = entry_sayfa_adi.get()
 	kopyalanacak_sutun = entry_kopyalanacak_sutun.get().strip() if entry_kopyalanacak_sutun.get().strip() else None
@@ -161,11 +184,14 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 								usecols = kopyalanacak_sutun)
 			baslik = list(df_g.iloc[baslik_satiri])
 			break
-	print("B A S L I K:", baslik)
+	# # print("B A S L I K:", baslik)		# silinecek
 	return baslik
+"""
+
 
 ### SADECE BİR DOSYA İÇERİSİNDEKİ VERİLERİ TOPLAYAN FONKSİYON
 # # def dosya_verileri(dosya_adi):
+# # def dosya_verileri(dosya_adi = "/home/halil/Documents/GitHub/Excel_Birlestir_GUI/D3.xlsx"):		# silinecek
 	# # sayfa_adi = entry_sayfa_adi.get()
 	# # ilk_veri_satiri = int(entry_ilk_veri_satiri.get())
 	# # kopyalanacak_sutun = entry_kopyalanacak_sutun.get().strip()
@@ -216,6 +242,7 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 	# # ### TESPİT EDİLEN SATİRLAR SİL.
 	# # df_g.drop(silinecek_satirlar, axis = 0, inplace = True)
 
+	# # print("VERİ ÇERÇEVESİ:\n", df_g)
 	# # return df_g
 
 ### EXCELLERİ BİRLEŞTİRME FONKSİYONU
@@ -249,6 +276,7 @@ ttk.Button(pencere,
 			text = "Dosyaları Birleştir ve Kaydet...",
 			style = 'primary.TButton',
 			command = baslik).grid(row = 2, column = 1, pady = 5, padx = 25)
+			# # command = dosya_verileri).grid(row = 2, column = 1, pady = 5, padx = 25)
 			# # command = birlestir).grid(row = 2, column = 1, pady = 5, padx = 25)
 
 ### BİLGİ ETKETİ
