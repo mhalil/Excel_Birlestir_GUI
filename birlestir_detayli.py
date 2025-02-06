@@ -146,22 +146,27 @@ def baslik(dosya):  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyon
 	baslik_satiri = int(entry_baslik_satiri.get()) - 2
 	baslik = list()
 
-	if kontrol_sayfa_adi.get() == 0:
-		df_g = read_excel(dosya,
-							sheet_name = 0,
-							usecols = kopyalanacak_sutun)
-		# # print("BASLIK SATIRI", baslik_satiri)		# silinecek
-		baslik = list(df_g.iloc[baslik_satiri])
+	try:
+		if kontrol_sayfa_adi.get() == 0:
+			df_g = read_excel(dosya,
+								sheet_name = 0,
+								usecols = kopyalanacak_sutun)
+			# # print("BASLIK SATIRI", baslik_satiri)		# silinecek
+			baslik = list(df_g.iloc[baslik_satiri])
 
-	elif kontrol_sayfa_adi.get() == 1 and sayfa_adi in excel_sayfa_adlari(dosya):
-		df_g = read_excel(dosya,
-							sheet_name = 0 if sayfa_adi == "0" else sayfa_adi,
-							usecols = kopyalanacak_sutun)
-		baslik = list(df_g.iloc[baslik_satiri])
-	print("B A S L I K:", baslik)		# silinecek
-	return baslik
+		elif kontrol_sayfa_adi.get() == 1 and sayfa_adi in excel_sayfa_adlari(dosya):
+			df_g = read_excel(dosya,
+								sheet_name = 0 if sayfa_adi == "0" else sayfa_adi,
+								usecols = kopyalanacak_sutun)
+			baslik = list(df_g.iloc[baslik_satiri])
+		print(dosya, "Dosyasına ait B A S L I K:", baslik)		# silinecek
+		return baslik
 
-""" YEDEK ORJ FONKSIYON
+	except:
+		messagebox.showwarning(title = "Sayfa Adı Hatası",
+									message = f"HATA: {dosya} Dosyasında {sayfa_adi} sayfa adi  belirtilmemiş ya da mevcut olmayabilir. Veyahut ilk sayfada veri olmayabilir.")
+
+""" YEDEK ORJ FONKSIYON		-		HAZIRLANAN FONKSİYON SORUNSUZ CALISINCA SİLİNECEK
 def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki hata ChatGPT ile cozuldu.
 	sayfa_adi = entry_sayfa_adi.get()
 	kopyalanacak_sutun = entry_kopyalanacak_sutun.get().strip() if entry_kopyalanacak_sutun.get().strip() else None
@@ -191,59 +196,59 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 
 ### SADECE BİR DOSYA İÇERİSİNDEKİ VERİLERİ TOPLAYAN FONKSİYON
 # # def dosya_verileri(dosya_adi):
-# # def dosya_verileri(dosya_adi = "/home/halil/Documents/GitHub/Excel_Birlestir_GUI/D3.xlsx"):		# silinecek
-	# # sayfa_adi = entry_sayfa_adi.get()
-	# # ilk_veri_satiri = int(entry_ilk_veri_satiri.get())
-	# # kopyalanacak_sutun = entry_kopyalanacak_sutun.get().strip()
+def dosya_verileri(dosya_adi = "/home/halil/Documents/GitHub/Excel_Birlestir_GUI/D2.xlsx"):		# silinecek
+	sayfa_adi = entry_sayfa_adi.get()
+	ilk_veri_satiri = int(entry_ilk_veri_satiri.get())
+	kopyalanacak_sutun = entry_kopyalanacak_sutun.get().strip()
 
-	# # if (kontrol_sayfa_adi.get() == 1):
-		# # try:
-			# # df_g = read_excel(dosya_adi,
-								# # header = None,
-								# # names = baslik(),
-								# # sheet_name = 0 if sayfa_adi == "0" else sayfa_adi,
-								# # skiprows = range(0, ilk_veri_satiri - 1),
-								# # usecols = kopyalanacak_sutun)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
-		# # except:
-			# # messagebox.showwarning(title = "Sayfa Adı Hatası",
-									# # message = f"{dosya_adi} dosyası içerisinde '{sayfa_adi}' isimli sayfa bulunmamaktadır")
-			# # df_g = DataFrame()
+	if (kontrol_sayfa_adi.get() == 1):
+		try:
+			df_g = read_excel(dosya_adi,
+								header = None,
+								names = baslik(dosya_adi),
+								sheet_name = 0 if sayfa_adi == "0" else sayfa_adi,
+								skiprows = range(0, ilk_veri_satiri - 1),
+								usecols = kopyalanacak_sutun)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
+		except:
+			messagebox.showwarning(title = "Sayfa Adı Hatası",
+									message = f"{dosya_adi} dosyası içerisinde '{sayfa_adi}' isimli sayfa bulunmamaktadır")
+			df_g = DataFrame()
 
-	# # else:
-		# # df_g = read_excel(dosya_adi,
-							# # header = None,
-							# # names = baslik(),
-							# # skiprows = range(0, ilk_veri_satiri - 1),
-							# # usecols = kopyalanacak_sutun)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
+	else:
+		df_g = read_excel(dosya_adi,
+							header = None,
+							names = baslik(dosya_adi),
+							skiprows = range(0, ilk_veri_satiri - 1),
+							usecols = kopyalanacak_sutun)	# ***** sayfa_adi olmayan secenek te eklenecek - revize
 
-	# # dosyanin_adi = ""
-	# # isl_sistemi = name
+	dosyanin_adi = ""
+	isl_sistemi = name
 
-	# # if isl_sistemi == "posix":
-		# # dosyanin_adi = dosya_adi.rsplit("/", 1)[1]
+	if isl_sistemi == "posix":
+		dosyanin_adi = dosya_adi.rsplit("/", 1)[1]
 
-	# # else:
-		# # dosyanin_adi = dosya_adi.rsplit("\\", 1)[1]
+	else:
+		dosyanin_adi = dosya_adi.rsplit("\\", 1)[1]
 
-	# # df_g["Dosya ADI"] = dosyanin_adi
+	df_g["Dosya ADI"] = dosyanin_adi
 
-	# # ### SİLİNECEK SATIR NUMARALARINI TESPİT ET.
-	# # df_satir_sayisi_liste = list(range(df_g.shape[0]))
-	# # silinecek_satirlar = []
+	### SİLİNECEK SATIR NUMARALARINI TESPİT ET.
+	df_satir_sayisi_liste = list(range(df_g.shape[0]))
+	silinecek_satirlar = []
 
-	# # kopyala = int(entry_kopyalanacak_satir.get())
-	# # atla = int(entry_atlanacak_satir.get())
+	kopyala = int(entry_kopyalanacak_satir.get())
+	atla = int(entry_atlanacak_satir.get())
 
-	# # i = int(entry_kopyalanacak_satir.get())
-	# # while i < len(df_satir_sayisi_liste):
-		# # silinecek_satirlar.extend(df_satir_sayisi_liste[i:i+atla])
-		# # i += (kopyala + atla)
+	i = int(entry_kopyalanacak_satir.get())
+	while i < len(df_satir_sayisi_liste):
+		silinecek_satirlar.extend(df_satir_sayisi_liste[i:i+atla])
+		i += (kopyala + atla)
 
-	# # ### TESPİT EDİLEN SATİRLAR SİL.
-	# # df_g.drop(silinecek_satirlar, axis = 0, inplace = True)
+	### TESPİT EDİLEN SATİRLAR SİL.
+	df_g.drop(silinecek_satirlar, axis = 0, inplace = True)
 
-	# # print("VERİ ÇERÇEVESİ:\n", df_g)
-	# # return df_g
+	print("VERİ ÇERÇEVESİ:\n", df_g)
+	return df_g
 
 ### EXCELLERİ BİRLEŞTİRME FONKSİYONU
 # # def birlestir():
@@ -275,8 +280,8 @@ buton_yardim.grid(row = 2, column = 0, pady = 5, padx = 25)
 ttk.Button(pencere,
 			text = "Dosyaları Birleştir ve Kaydet...",
 			style = 'primary.TButton',
-			command = baslik).grid(row = 2, column = 1, pady = 5, padx = 25)
-			# # command = dosya_verileri).grid(row = 2, column = 1, pady = 5, padx = 25)
+			# # command = baslik).grid(row = 2, column = 1, pady = 5, padx = 25)
+			command = dosya_verileri).grid(row = 2, column = 1, pady = 5, padx = 25)
 			# # command = birlestir).grid(row = 2, column = 1, pady = 5, padx = 25)
 
 ### BİLGİ ETKETİ
