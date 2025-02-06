@@ -167,8 +167,8 @@ def baslik(dosya):  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyon
 									message = f"HATA: {dosya} Dosyasında {sayfa_adi} sayfa adi  belirtilmemiş ya da mevcut olmayabilir. Veyahut ilk sayfada veri olmayabilir.")
 
 ### SADECE BİR DOSYA İÇERİSİNDEKİ VERİLERİ TOPLAYAN FONKSİYON
-# # def dosya_verileri(dosya_adi):
-def dosya_verileri(dosya_adi = "/home/halil/Documents/GitHub/Excel_Birlestir_GUI/D2.xlsx"):		# silinecek
+def dosya_verileri(dosya_adi):
+# # def dosya_verileri(dosya_adi = "/home/halil/Documents/GitHub/Excel_Birlestir_GUI/D2.xlsx"):		# silinecek
 	sayfa_adi = entry_sayfa_adi.get()
 	ilk_veri_satiri = int(entry_ilk_veri_satiri.get())
 	kopyalanacak_sutun = entry_kopyalanacak_sutun.get().strip()
@@ -223,24 +223,28 @@ def dosya_verileri(dosya_adi = "/home/halil/Documents/GitHub/Excel_Birlestir_GUI
 	return df_g
 
 ### EXCELLERİ BİRLEŞTİRME FONKSİYONU
-# # def birlestir():
-	# # bayrak = True
-	# # df = DataFrame()	# bos bir veri cercevesi
+def birlestir():
+	bayrak = True
+	df = DataFrame()	# bos bir veri cercevesi
 
-	# # for excel in excel_dosyalari:
-		# # if bayrak:
-			# # df = dosya_verileri(excel)
-			# # bayrak = False
-		# # else:
-			# # df_g = dosya_verileri(excel)
-			# # df = concat([df, df_g])
+	if len(excel_dosyalari) > 0:
+		for excel_dosyasi in excel_dosyalari:
+			if bayrak:
+				df = dosya_verileri(excel_dosyasi)
+				bayrak = False
+			else:
+				df_g = dosya_verileri(excel_dosyasi)
+				df = concat([df, df_g])
 
-	# # ### DOSYAYI KAYDET
-	# # ad = kayit_icin_sec()
-	# # if ad:
-		# # df.to_excel(ad)
-	# # print("İşlem gerçekleşti / iptal edildi")
+		### DOSYAYI KAYDET
+		ad = kayit_icin_sec()
+		if ad:
+			df.to_excel(ad)
+		print("İşlem gerçekleşti / iptal edildi")
 
+	else:
+		messagebox.showwarning(title = "Dosya Seçimi Hatası",
+									message = "Seçili Excel dosyaları bulunmamaktadır.\nÖncelikle Birleştirilecek dosyaları seçmelisiniz.")
 
 ### ALT BUTONLAR
 buton_yardim = ttk.Button(pencere,
@@ -253,8 +257,8 @@ ttk.Button(pencere,
 			text = "Dosyaları Birleştir ve Kaydet...",
 			style = 'primary.TButton',
 			# # command = baslik).grid(row = 2, column = 1, pady = 5, padx = 25)
-			command = dosya_verileri).grid(row = 2, column = 1, pady = 5, padx = 25)
-			# # command = birlestir).grid(row = 2, column = 1, pady = 5, padx = 25)
+			# # command = dosya_verileri).grid(row = 2, column = 1, pady = 5, padx = 25)
+			command = birlestir).grid(row = 2, column = 1, pady = 5, padx = 25)
 
 ### BİLGİ ETKETİ
 bilgi = Label(pencere,
@@ -263,3 +267,9 @@ bilgi.grid(row = 3, column = 0, columnspan = 2)
 
 
 pencere.mainloop()
+
+"""
+Eklenecekler:
+* baslik satırı en üstte olursa, kodda ne değişecek incele.
+* birden fazla sayfa adı ile birleştirme yapmak istenirse ...
+"""
