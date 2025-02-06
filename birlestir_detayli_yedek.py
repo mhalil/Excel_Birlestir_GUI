@@ -181,6 +181,34 @@ def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki 
 				break
 	return baslik
 
+
+""" YEDEK ORJ FONKSIYON		-		HAZIRLANAN FONKSİYON SORUNSUZ CALISINCA BU FONKSİYON SİLİNECEK
+def baslik():  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyondaki hata ChatGPT ile cozuldu.
+	sayfa_adi = entry_sayfa_adi.get()
+	kopyalanacak_sutun = entry_kopyalanacak_sutun.get().strip() if entry_kopyalanacak_sutun.get().strip() else None
+	baslik_satiri = int(entry_baslik_satiri.get()) - 2
+	baslik = list()
+
+	for excel in excel_dosyalari:
+		# # print("kontrol_sayfa_adi:" , kontrol_sayfa_adi.get())		# silinecek
+		if kontrol_sayfa_adi.get() == 0:
+			df_g = read_excel(excel,
+								sheet_name = 0,
+								usecols = kopyalanacak_sutun)
+			# # print("BASLIK SATIRI", baslik_satiri)		# silinecek
+			baslik = list(df_g.iloc[baslik_satiri])
+			break
+
+		elif kontrol_sayfa_adi.get() == 1 and sayfa_adi in excel_sayfa_adlari(excel):
+			df_g = read_excel(excel,
+								sheet_name = 0 if sayfa_adi == "0" else sayfa_adi,
+								usecols = kopyalanacak_sutun)
+			baslik = list(df_g.iloc[baslik_satiri])
+			break
+	# # print("B A S L I K:", baslik)		# silinecek
+	return baslik
+"""
+
 ### SADECE BİR DOSYA İÇERİSİNDEKİ VERİLERİ TOPLAYAN FONKSİYON
 def dosya_verileri(dosya_adi):
 	sayfa_adi = entry_sayfa_adi.get()
