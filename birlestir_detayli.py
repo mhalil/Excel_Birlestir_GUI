@@ -152,19 +152,27 @@ def baslik(dosya):  # Başlık belirlemek için kullanılan fonksiyon. Fonksiyon
 								sheet_name = 0,
 								usecols = kopyalanacak_sutun)
 			# # print("BASLIK SATIRI", baslik_satiri)		# silinecek
-			baslik = list(df_g.iloc[baslik_satiri])
+			if entry_baslik_satiri.get() == "1":
+				baslik = df_g.columns
+
+			else:
+				baslik = list(df_g.iloc[baslik_satiri])
 
 		elif kontrol_sayfa_adi.get() == 1 and sayfa_adi in excel_sayfa_adlari(dosya):
 			df_g = read_excel(dosya,
 								sheet_name = 0 if sayfa_adi == "0" else sayfa_adi,
 								usecols = kopyalanacak_sutun)
-			baslik = list(df_g.iloc[baslik_satiri])
+			if entry_baslik_satiri.get() == "1":
+				baslik = df_g.columns
+
+			else:
+				baslik = list(df_g.iloc[baslik_satiri])
 		print(dosya, "Dosyasına ait B A S L I K:", baslik)		# silinecek
 		return baslik
 
 	except:
 		messagebox.showwarning(title = "Sayfa Adı Hatası",
-									message = f"HATA: {dosya} Dosyasında {sayfa_adi} sayfa adi  belirtilmemiş ya da mevcut olmayabilir. Veyahut ilk sayfada veri olmayabilir.")
+									message = f"HATA: {dosya} Dosyasında; \n* ilk sayfada veri olmayabilir,\n* {sayfa_adi} sayfa adi  belirtilmemiş olabilir.")
 
 ### SADECE BİR DOSYA İÇERİSİNDEKİ VERİLERİ TOPLAYAN FONKSİYON
 def dosya_verileri(dosya_adi):
