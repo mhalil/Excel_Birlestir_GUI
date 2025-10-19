@@ -1,6 +1,12 @@
 # Excel Birlestir (Excel Merge)
 Bu repoda bulunan kodlar ile seçilen klasörde bulunan tüm **Excel (.xls ve .xlsx)** dosyalarının içeriklerini, belirleyeceğimiz parametrelere göre (belirli satır ve sütunlardaki değerleri seçerek) birlestirilebiliriz.
 
+# İÇİNDEKİLER
+[UYGULAMA ARABİRİMİ](#1)
+
+[ÖRNEK EXCEL DOSYALARI](#2)
+
+<a id="1"></a><br>
 ## UYGULAMA ARABİRİMİ
 Uygulamanın arabirimi aşağıdaki gibidir.
 
@@ -12,7 +18,7 @@ Görsel yardım resmine bakarsanız, birleşim içi için hangi parametrelerin b
 
 ![ss](resimler/SS_yardim.png)
 
-
+<a id="2"></a><br>
 ## ÖRNEK EXCEL DOSYALARI
 
 Elimizde, aşağıdakine benzer içerikli aynı formatta (biçimde) Excel dosyaları olduğunu varsayalım.
