@@ -2,9 +2,11 @@
 Bu repoda bulunan kodlar ile seçilen klasörde bulunan tüm **Excel (.xls ve .xlsx)** dosyalarının içeriklerini, belirleyeceğimiz parametrelere göre (belirli satır ve sütunlardaki değerleri seçerek) birlestirilebiliriz.
 
 # İÇİNDEKİLER
-[UYGULAMA ARABİRİMİ](#1)
+1. [UYGULAMA ARABİRİMİ](#1)
+2. [ÖRNEK EXCEL DOSYALARI](#2)
+3. [PARAMETRELER](#3)
+4. [SONUÇ](#4)
 
-[ÖRNEK EXCEL DOSYALARI](#2)
 
 <a id="1"></a><br>
 ## UYGULAMA ARABİRİMİ
@@ -42,7 +44,7 @@ Elimizde, aşağıdakine benzer içerikli aynı formatta (biçimde) Excel dosyal
 
 Bu anlatımda 4 adet dosya (**D1.xlsx, D2.xlsx, D3.xlsx** ve **D4.xls**) kullanılmıştır.
 
-
+<a id="3"></a><br>
 ## PARAMETRELER
 ### Parametre Detayları:
 
@@ -61,6 +63,7 @@ Bu anlatımda 4 adet dosya (**D1.xlsx, D2.xlsx, D3.xlsx** ve **D4.xls**) kullan�
 
 **<u>NOT:</u>** **Veri Barındıran Satır Sayısı** ve **Silinecek Satır Sayısı** değerleri ardışık olarak düzenli bir şekilde devam etmelidir. Yani İlk veri gurubu 7 satırdan oluşup ardından 5 satır silinecek veri bulunuyorsa, yapı sürekli bu şekilde (7-5 - 7-5 - 7-5, ...) devam etmelidir.
 
+<a id="4"></a><br>
 ## SONUÇ
 
 **Program çalıştırıldığında elde edeceğimiz sonuç aşağıdaki gibidir:**
