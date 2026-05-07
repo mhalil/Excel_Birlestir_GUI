@@ -435,6 +435,7 @@ class ExcelMergerApp(QMainWindow):
             "<li>Platform: Google Antigravity</li>"
             "<li>Metodoloji: Vibe Coding</li>"
             "<li>Programlama Dili: Python (3.12.4)</li>"
+            "<li>Kullanılan Kütüphaneler: Pandas, Openpyxl, xlwt, xlrd, PySide6</li>"
             "<br>" 
             "GPL Lisansı Altında Dağıtılmaktadır. | 2026"
         )

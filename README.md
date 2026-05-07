@@ -36,8 +36,8 @@ pip install pandas PySide6 openpyxl xlwt xlrd
 
 ## Kullanım Rehberi
 
-1. **Çalıştırma**: Uygulamayı `python birlestir_detayli.py` komutuyla başlatın.
-2. **Klasör Seçimi**: "Klasör Seç..." butonuna tıklayarak birleştirilecek dosyaların bulunduğu dizini belirleyin.
+1. **Çalıştırma**: Uygulamayı `python excel_birlestir.py` komutuyla başlatın.
+2. **Klasör Seçimi**: "**Klasör Seç...**" butonuna tıklayarak birleştirilecek dosyaların bulunduğu dizini belirleyin.
 3. **Parametre Ayarları (İsteğe Bağlı)**:
    - **Özel Sayfa Adı Belirt**: Tüm sayfalardan değil, sadece belirteceğiniz adlı sayfadan (veya indeksten) veri çeker.
    - **Özel Başlık/Veri Satırı**: Başlığın 1. satırda olmadığı durumlarda ilgili satır numaralarını girin.
@@ -47,9 +47,23 @@ pip install pandas PySide6 openpyxl xlwt xlrd
 4. **Birleştir ve Kaydet**: İşlem parametrelerinizi belirledikten sonra "Dosyaları Birleştir ve Kaydet" butonuna tıklayın. Karşınıza çıkacak pencerede oluşturulacak birleştirilmiş dosyanın adını ve nereye kaydedileceğini seçin.
 5. İşlem bitiminde oluşan Excel dosyasını seçtiğiniz konumda bulabilirsiniz.
 
+## v2.0 Uygulama Ekran Görüntüleri
+
+![v2.0_SS_1](resimler/v2.0_SS_1.png)
+
+![v2.0_SS_2](resimler/v2.0_SS_2.png)
+
+![v2.0_SS_3](resimler/v2.0_SS_3.png)
+
+![v2.0_SS_4](resimler/v2.0_SS_4.png)
+
+![v2.0_SS_5](resimler/v2.0_SS_5.png)
+
+![v2.0_SS_6](resimler/v2.0_SS_6.png)
+
 ## Geliştirici ve Lisans
 
-Bu yazılım **Vibe Coder: Mustafa Halil GÖRENTAŞ** tarafından **GPL Lisansı** altında (2026) dağıtılmaktadır. Vibe Coding metodolojisi ve Google Antigravity platformu kullanılarak geliştirilmiştir.
+Bu yazılım **Mustafa Halil GÖRENTAŞ** tarafından **GPL Lisansı** altında (2026) dağıtılmaktadır. Vibe Coding metodolojisi ve Google Antigravity platformu kullanılarak geliştirilmiştir.
 
 - **Kaynak Kod**: [github.com/mhalil/Excel_Birlestir_GUI](https://github.com/mhalil/Excel_Birlestir_GUI)
 
