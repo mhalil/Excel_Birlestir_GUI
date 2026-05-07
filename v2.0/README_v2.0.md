@@ -34,19 +34,19 @@ pip install pandas PySide6 openpyxl xlwt xlrd
 
 ## Kullanım Rehberi
 
-1. **Çalıştırma**: Uygulamayı `python birlestir_detayli.py` komutuyla başlatın.
+1. **Çalıştırma**: Uygulamayı `python excel_birlestir.py` komutuyla başlatın.
 2. **Klasör Seçimi**: "Klasör Seç..." butonuna tıklayarak birleştirilecek dosyaların bulunduğu dizini belirleyin.
 3. **Parametre Ayarları (İsteğe Bağlı)**:
-    - **Özel Sayfa Adı Belirt**: Tüm sayfalardan değil, sadece belirteceğiniz adlı sayfadan (veya indeksten) veri çeker.
-    - **Özel Başlık/Veri Satırı**: Başlığın 1. satırda olmadığı durumlarda ilgili satır numaralarını girin.
-    - **Özel Sütunları Kopyala**: Sadece belli sütunları birleştirmek için sütun harflerini (Örn: `A:F`) yazın.
-    - **Metin Olarak Okunacak Sütunlar**: TCKN veya IBAN olan sütunların harf/indeks değerini girin.
-    - **Tekrarlayan Alt Satırları Sil**: Her sayfada tekrar eden alt bilgi/imza blokları varsa, verinin ve atlanacak kısmın satır sayılarını belirterek örüntü oluşturun.
+   - **Özel Sayfa Adı Belirt**: Tüm sayfalardan değil, sadece belirteceğiniz adlı sayfadan (veya indeksten) veri çeker.
+   - **Özel Başlık/Veri Satırı**: Başlığın 1. satırda olmadığı durumlarda ilgili satır numaralarını girin.
+   - **Özel Sütunları Kopyala**: Sadece belli sütunları birleştirmek için sütun harflerini (Örn: `A:F`) yazın.
+   - **Metin Olarak Okunacak Sütunlar**: TCKN veya IBAN olan sütunların harf/indeks değerini girin.
+   - **Tekrarlayan Alt Satırları Sil**: Her sayfada tekrar eden alt bilgi/imza blokları varsa, verinin ve atlanacak kısmın satır sayılarını belirterek örüntü oluşturun.
 4. **Birleştir ve Kaydet**: İşlem parametrelerinizi belirledikten sonra "Dosyaları Birleştir ve Kaydet" butonuna tıklayın. Karşınıza çıkacak pencerede oluşturulacak birleştirilmiş dosyanın adını ve nereye kaydedileceğini seçin.
 5. İşlem bitiminde oluşan Excel dosyasını seçtiğiniz konumda bulabilirsiniz.
 
 ## Geliştirici ve Lisans
 
-Bu yazılım **Vibe Coder: Mustafa Halil GÖRENTAŞ** tarafından **GPL Lisansı** altında (2026) dağıtılmaktadır. Vibe Coding metodolojisi ve Google Antigravity platformu kullanılarak geliştirilmiştir.
+Bu yazılım **Mustafa Halil GÖRENTAŞ** tarafından **GPL Lisansı** altında (2026) dağıtılmaktadır. Vibe Coding metodolojisi ve Google Antigravity platformu kullanılarak geliştirilmiştir.
 
 - **Kaynak Kod**: [github.com/mhalil/Excel_Birlestir_GUI](https://github.com/mhalil/Excel_Birlestir_GUI)
