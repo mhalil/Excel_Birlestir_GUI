@@ -79,8 +79,6 @@ pip install pandas PySide6 openpyxl xlwt xlrd
 
 ![SS_v2.0_Linux_6](resimler/SS_v2.0_Linux_6.png)
 
-![SS_v2.0_Linux_7](resimler/SS_v2.0_Linux_7.png)
-
 ## Geliştirici ve Lisans
 
 Bu yazılım **Mustafa Halil GÖRENTAŞ** tarafından **GPL Lisansı** altında (2026) dağıtılmaktadır. Vibe Coding metodolojisi ve Google Antigravity platformu kullanılarak geliştirilmiştir.
