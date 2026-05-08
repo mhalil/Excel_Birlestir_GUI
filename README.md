@@ -67,17 +67,19 @@ pip install pandas PySide6 openpyxl xlwt xlrd
 
 ### Linux:
 
-![SS_v2.0_Linux_1](resimler/v2.0_SS_1.png)
+![SS_v2.0_Linux_1](resimler/SS_v2.0_Linux_1.png)
 
-![SS_v2.0_Linux_2](resimler/v2.0_SS_2.png)
+![SS_v2.0_Linux_2](resimler/SS_v2.0_Linux_2.png)
 
-![SS_v2.0_Linux_3](resimler/v2.0_SS_3.png)
+![SS_v2.0_Linux_3](resimler/SS_v2.0_Linux_3.png)
 
-![SS_v2.0_Linux_4](resimler/v2.0_SS_4.png)
+![SS_v2.0_Linux_4](resimler/SS_v2.0_Linux_4.png)
 
-![SS_v2.0_Linux_5](resimler/v2.0_SS_5.png)
+![SS_v2.0_Linux_5](resimler/SS_v2.0_Linux_5.png)
 
-![SS_v2.0_Linux_6](resimler/v2.0_SS_6.png)
+![SS_v2.0_Linux_6](resimler/SS_v2.0_Linux_6.png)
+
+![SS_v2.0_Linux_7](resimler/SS_v2.0_Linux_7.png)
 
 ## Geliştirici ve Lisans
 
