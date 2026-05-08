@@ -49,17 +49,35 @@ pip install pandas PySide6 openpyxl xlwt xlrd
 
 ## v2.0 Uygulama Ekran Görüntüleri
 
-![v2.0_SS_1](resimler/v2.0_SS_1.png)
+### Windows:
 
-![v2.0_SS_2](resimler/v2.0_SS_2.png)
+![SS_v2.0_Win_1](resimler/SS_v2.0_Win_1.jpg)
 
-![v2.0_SS_3](resimler/v2.0_SS_3.png)
+![SS_v2.0_Win_2](resimler/SS_v2.0_Win_2.jpg)
 
-![v2.0_SS_4](resimler/v2.0_SS_4.png)
+![SS_v2.0_Win_3](resimler/SS_v2.0_Win_3.jpg)
 
-![v2.0_SS_5](resimler/v2.0_SS_5.png)
+![SS_v2.0_Win_4](resimler/SS_v2.0_Win_4.jpg)
 
-![v2.0_SS_6](resimler/v2.0_SS_6.png)
+![SS_v2.0_Win_5](resimler/SS_v2.0_Win_5.jpg)
+
+![SS_v2.0_Win_6](resimler/SS_v2.0_Win_6.jpg)
+
+![SS_v2.0_Win_7](resimler/SS_v2.0_Win_7.jpg)
+
+### Linux:
+
+![SS_v2.0_Linux_1](resimler/v2.0_SS_1.png)
+
+![SS_v2.0_Linux_2](resimler/v2.0_SS_2.png)
+
+![SS_v2.0_Linux_3](resimler/v2.0_SS_3.png)
+
+![SS_v2.0_Linux_4](resimler/v2.0_SS_4.png)
+
+![SS_v2.0_Linux_5](resimler/v2.0_SS_5.png)
+
+![SS_v2.0_Linux_6](resimler/v2.0_SS_6.png)
 
 ## Geliştirici ve Lisans
 
